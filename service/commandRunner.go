@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"github.ylanzinhoy.tooling_golang/enums"
 	"log"
 	"os"
 	"os/exec"
@@ -19,11 +20,11 @@ func (s *CommandsStruct) CommandRunner(name, goModCommand string) error {
 	err := cmd.Run()
 
 	if err != nil {
-		log.Fatalf("Erro ao executar o comando %s\n", err)
+		log.Fatalf(enums.Red+"Erro ao executar o comando %s\n", err)
 		return err
 	}
 
-	fmt.Printf("%s instalado com sucesso! ", name)
+	fmt.Printf(enums.Green+"%s instalado com sucesso! ", name)
 
 	return nil
 }

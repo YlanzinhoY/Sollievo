@@ -14,6 +14,7 @@ type ToolsServiceInterface interface {
 
 type ToolingControllerUpper struct{}
 
+// region functions
 func (t *ToolingControllerUpper) Exec(commandsStruct *service.CommandsStruct, value, goPackage string) {
 	err := commandsStruct.CommandRunner(value, goPackage)
 	if err != nil {
@@ -33,17 +34,18 @@ func (t *ToolingControllerUpper) ToolingController() {
 	//region switch case
 	for _, choice := range tools {
 		switch choice {
-		case toolsChoices[0]:
+		case enums.Gorm:
 			t.Exec(&commandsStruct, enums.Gorm, enums.GormPackage)
-		case toolsChoices[1]:
+		case enums.Viper:
 			t.Exec(&commandsStruct, enums.Viper, enums.ViperPackage)
-		case toolsChoices[2]:
+		case enums.Wire:
 			t.Exec(&commandsStruct, enums.Wire, enums.WirePackage)
 		case enums.Default:
 			fmt.Println("Saindo...")
 			break
 		}
 	}
-
 	//endregion
 }
+
+//endregion
