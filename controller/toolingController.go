@@ -3,7 +3,6 @@ package controller
 import (
 	"fmt"
 	"github.ylanzinhoy.tooling_golang/enums"
-	"github.ylanzinhoy.tooling_golang/model"
 	"github.ylanzinhoy.tooling_golang/service"
 	"net/http"
 )
@@ -25,8 +24,6 @@ func (t *ToolingControllerUpper) Exec(commandsStruct *service.CommandsStruct, va
 
 func (t *ToolingControllerUpper) ToolingController() {
 	toolsChoices := make([]string, 0)
-	commandsStruct := service.CommandsStruct{}
-	modelTools := model.Tools{}
 
 	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(toolsChoices,
 		enums.Gorm, enums.Viper, enums.Wire, enums.Default)), "tools")
