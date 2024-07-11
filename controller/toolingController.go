@@ -40,6 +40,8 @@ func (t *ToolingControllerUpper) ToolingController() {
 			t.Exec(&commandsStruct, enums.Viper, enums.ViperPackage)
 		case enums.Wire:
 			t.Exec(&commandsStruct, enums.Wire, enums.WirePackage)
+		case enums.Prometheus:
+			t.Exec(&commandsStruct, enums.Prometheus, enums.PrometheusPackage)
 		case enums.Default:
 			fmt.Println(enums.Purple + "Saindo...")
 			break
