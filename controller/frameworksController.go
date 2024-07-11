@@ -22,7 +22,7 @@ func (t *ToolingControllerUpper) FrameworkController() {
 		case enums.Fiber:
 			t.Exec(&commandsStruct, enums.Fiber, enums.FiberPackage)
 		case enums.Default:
-			fmt.Println(enums.Purple + "Saindo...")
+			fmt.Println(enums.Purple + "Exit...")
 			break
 		case enums.Back:
 			t.Back(&commandsStruct, "tooling_golang")
