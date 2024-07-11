@@ -24,7 +24,7 @@ func (t *ToolingControllerUpper) Exec(commandsStruct *service.CommandsStruct, va
 }
 
 func (t *ToolingControllerUpper) ToolingController() {
-	toolsChoices := make([]string, 0, 3)
+	toolsChoices := make([]string, 0)
 	commandsStruct := service.CommandsStruct{}
 	modelTools := model.Tools{}
 
@@ -41,7 +41,7 @@ func (t *ToolingControllerUpper) ToolingController() {
 		case enums.Wire:
 			t.Exec(&commandsStruct, enums.Wire, enums.WirePackage)
 		case enums.Default:
-			fmt.Println("Saindo...")
+			fmt.Println(enums.Purple + "Saindo...")
 			break
 		}
 	}
