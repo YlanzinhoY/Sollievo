@@ -9,6 +9,7 @@ import (
 
 type ToolsServiceInterface interface {
 	Exec(commandsStruct *service.CommandsStruct, value, goPackage string)
+	Back(commandsStruct *service.CommandsStruct, command string)
 }
 
 type ToolingControllerUpper struct{}
@@ -22,11 +23,19 @@ func (t *ToolingControllerUpper) Exec(commandsStruct *service.CommandsStruct, va
 	fmt.Printf("%d\n", http.StatusOK)
 }
 
+func (t *ToolingControllerUpper) Back(commandsStruct *service.CommandsStruct, command string) {
+	err := commandsStruct.Back(command)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+}
 func (t *ToolingControllerUpper) ToolingController() {
 	toolsChoices := make([]string, 0)
 
 	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(toolsChoices,
-		enums.Gorm, enums.Viper, enums.Wire, enums.Default)), "tools")
+		enums.Gorm, enums.Viper, enums.Wire, enums.Default, enums.Back)), "tools")
 
 	//region switch case
 	for _, choice := range tools {
@@ -41,6 +50,11 @@ func (t *ToolingControllerUpper) ToolingController() {
 			t.Exec(&commandsStruct, enums.Prometheus, enums.PrometheusPackage)
 		case enums.Default:
 			fmt.Println(enums.Purple + "Saindo...")
+			break
+		case enums.Back:
+			t.Back(&commandsStruct, "tooling_golang")
+			break
+		default:
 			break
 		}
 	}

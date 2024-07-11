@@ -9,7 +9,7 @@ func (t *ToolingControllerUpper) FrameworkController() {
 	frameworkChoices := make([]string, 0)
 
 	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(frameworkChoices, enums.Gin,
-		enums.Echo, enums.Chi, enums.Fiber, enums.Default)), "frameworks")
+		enums.Echo, enums.Chi, enums.Fiber, enums.Default, enums.Back)), "frameworks")
 
 	for _, choice := range tools {
 		switch choice {
@@ -23,6 +23,11 @@ func (t *ToolingControllerUpper) FrameworkController() {
 			t.Exec(&commandsStruct, enums.Fiber, enums.FiberPackage)
 		case enums.Default:
 			fmt.Println(enums.Purple + "Saindo...")
+			break
+		case enums.Back:
+			t.Back(&commandsStruct, "tooling_golang")
+			break
+		default:
 			break
 		}
 	}
