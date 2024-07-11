@@ -23,7 +23,7 @@ func (s *CommandsStruct) CommandRunner(name, goModCommand string) error {
 		return err
 	}
 
-	fmt.Printf("%s instalado com sucesso!", name)
+	fmt.Printf("%s instalado com sucesso! ", name)
 
 	return nil
 }
