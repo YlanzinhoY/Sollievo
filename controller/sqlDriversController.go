@@ -7,7 +7,7 @@ func (t *ToolingControllerUpper) SqlDriversController() {
 	driversChoice := make([]string, 0)
 
 	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(driversChoice, enums.Postgres,
-		enums.MySQL, enums.Cassandra)),
+		enums.MySQL, enums.Cassandra, enums.Default, enums.Back)),
 		"sqlDrivers")
 
 	for _, choice := range tools {
