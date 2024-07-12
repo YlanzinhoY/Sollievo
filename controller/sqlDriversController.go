@@ -13,6 +13,8 @@ func (t *ToolingControllerUpper) SqlDriversController() {
 		switch choice {
 		case enums.Postgres:
 			t.Exec(&commandsStruct, enums.Postgres, enums.PostgresPackage)
+		case enums.MySQL:
+			t.Exec(&commandsStruct, enums.MySQL, enums.MysqlPackage)
 		}
 	}
 }
