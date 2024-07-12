@@ -14,7 +14,6 @@ type ToolsServiceInterface interface {
 
 type ToolingControllerUpper struct{}
 
-// region functions
 func (t *ToolingControllerUpper) Exec(commandsStruct *service.CommandsStruct, value, goPackage string) {
 	err := commandsStruct.CommandRunner(value, goPackage)
 	if err != nil {
@@ -37,7 +36,6 @@ func (t *ToolingControllerUpper) ToolingController() {
 	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(toolsChoices,
 		enums.Gorm, enums.Viper, enums.Wire, enums.Default, enums.Back)), "tools")
 
-	//region switch case
 	for _, choice := range tools {
 		switch choice {
 		case enums.Gorm:
@@ -58,7 +56,4 @@ func (t *ToolingControllerUpper) ToolingController() {
 			break
 		}
 	}
-	//endregion
 }
-
-//endregion
