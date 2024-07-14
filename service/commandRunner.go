@@ -2,10 +2,11 @@ package service
 
 import (
 	"fmt"
-	"github.ylanzinhoy.tooling_golang/enums"
 	"log"
 	"os"
 	"os/exec"
+
+	"github.ylanzinhoy.tooling_golang/enums"
 )
 
 func (s *CommandsStruct) CommandRunner(name, goModCommand string) error {
@@ -32,6 +33,9 @@ func (s *CommandsStruct) CommandRunner(name, goModCommand string) error {
 func (s *CommandsStruct) Back(command string) error {
 	var cmd *exec.Cmd
 
+	if command == "" {
+		command = "tooling_golang"
+	}
 	cmd = exec.Command("bash", "-c", command)
 
 	cmd.Stdout = os.Stdout
@@ -45,4 +49,8 @@ func (s *CommandsStruct) Back(command string) error {
 	}
 
 	return nil
+}
+
+func (s *CommandsStruct) Exit() {
+	fmt.Println(enums.Purple + "Saindo...")
 }

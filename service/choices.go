@@ -16,6 +16,7 @@ func (s *CommandsStruct) Choices(args []string, choice string) []string {
 		Renderer: survey.Renderer{},
 		Message:  fmt.Sprintf("Choose %s", choice),
 		Options:  choices,
+		
 	}
 
 	err := survey.AskOne(prompt, &choiceType)

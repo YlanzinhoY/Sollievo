@@ -2,14 +2,16 @@ package controller
 
 import (
 	"fmt"
+	"net/http"
+
 	"github.ylanzinhoy.tooling_golang/enums"
 	"github.ylanzinhoy.tooling_golang/service"
-	"net/http"
 )
 
 type ToolsServiceInterface interface {
 	Exec(commandsStruct *service.CommandsStruct, value, goPackage string)
 	Back(commandsStruct *service.CommandsStruct, command string)
+	Exit(commandsStruct *service.CommandsStruct)
 }
 
 type ToolingControllerUpper struct{}
@@ -30,6 +32,10 @@ func (t *ToolingControllerUpper) Back(commandsStruct *service.CommandsStruct, co
 	}
 
 }
+
+func (s *ToolingControllerUpper) Exit(commandsStruct *service.CommandsStruct) {
+	fmt.Println(enums.Purple + "Saindo...")
+}
 func (t *ToolingControllerUpper) ToolingController() {
 	toolsChoices := make([]string, 0)
 
@@ -47,13 +53,11 @@ func (t *ToolingControllerUpper) ToolingController() {
 		case enums.Prometheus:
 			t.Exec(&commandsStruct, enums.Prometheus, enums.PrometheusPackage)
 		case enums.Default:
-			fmt.Println(enums.Purple + "Saindo...")
-			break
+			t.Exit(&commandsStruct)
 		case enums.Back:
 			t.Back(&commandsStruct, "tooling_golang")
-			break
 		default:
-			break
+			return
 		}
 	}
 }

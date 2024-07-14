@@ -1,6 +1,8 @@
 package controller
 
-import "github.ylanzinhoy.tooling_golang/enums"
+import (
+	"github.ylanzinhoy.tooling_golang/enums"
+)
 
 func (t *ToolingControllerUpper) SqlDriversController() {
 
@@ -18,6 +20,10 @@ func (t *ToolingControllerUpper) SqlDriversController() {
 			t.Exec(&commandsStruct, enums.MySQL, enums.MysqlPackage)
 		case enums.Cassandra:
 			t.Exec(&commandsStruct, enums.Cassandra, enums.CassandraPackage)
+		case enums.Default:
+			t.Exit(&commandsStruct)
+		case enums.Back:
+			t.Back(&commandsStruct, "")
 		}
 	}
 }
