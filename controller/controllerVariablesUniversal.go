@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.ylanzinhoy.tooling_golang/enums"
 	"github.ylanzinhoy.tooling_golang/model"
 	"github.ylanzinhoy.tooling_golang/service"
 )
@@ -38,5 +37,5 @@ func (t *ToolingControllerUpper) Back(commandsStruct *service.CommandsStruct, co
 }
 
 func (s *ToolingControllerUpper) Exit(commandsStruct *service.CommandsStruct) {
-	fmt.Println(enums.Purple + "Saindo...")
+	commandsStruct.Exit()
 }
