@@ -1,6 +1,6 @@
 package enums
 
-const Gorm = "GORM"
+const Gorm = "Gorm"
 const Viper = "Viper"
 const Wire = "Wire"
 const Prometheus = "Prometheus"

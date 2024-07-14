@@ -8,7 +8,7 @@ func (t *ToolingControllerUpper) ToolingController() {
 	toolsChoices := make([]string, 0)
 
 	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(toolsChoices,
-		enums.Gorm, enums.Viper, enums.Wire, enums.Default, enums.Back)), "tools")
+		enums.Gorm, enums.Viper, enums.Wire, enums.Prometheus, enums.Default, enums.Back)), "tools")
 
 	for _, choice := range tools {
 		switch choice {
