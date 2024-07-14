@@ -1,6 +1,5 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -10,21 +9,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
-
-
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "github.ylanzinhoy.tooling_golang",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use: "github.ylanzinhoy.tooling_golang",
+	Long: `
+___________           .__  .__                   ________       .__                         
+\__    ___/___   ____ |  | |__| ____    ____    /  _____/  ____ |  | _____    ____    ____  
+  |    | /  _ \ /  _ \|  | |  |/    \  / ___\  /   \  ___ /  _ \|  | \__  \  /    \  / ___\ 
+  |    |(  <_> |  <_> )  |_|  |   |  \/ /_/  > \    \_\  (  <_> )  |__/ __ \|   |  \/ /_/  >
+  |____| \____/ \____/|____/__|___|  /\___  /   \______  /\____/|____(____  /___|  /\___  / 
+                                   \//_____/           \/                 \/     \//_____/  
+`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
+	Version: "0.95.0",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -47,5 +46,3 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-
-
