@@ -4,6 +4,23 @@ import (
 	"github.ylanzinhoy.tooling_golang/enums"
 )
 
+// region Enums
+const (
+	postgres  = "postgres"
+	mySQL     = "mysql"
+	cassandra = "cassandra"
+	mongoDB   = "mongodb"
+
+	// packages
+
+	postgresPackage  = "go get github.com/lib/pq"
+	mysqlPackage     = "go get -u github.com/go-sql-driver/mysql"
+	cassandraPackage = "go get github.com/gocql/gocql"
+	mongoPackage     = "go get go.mongodb.org/mongo-driver/mongo"
+)
+
+//endregion
+
 func (t *ToolingControllerUpper) SqlDriversController() {
 
 	driversChoice := make([]string, 0)
@@ -12,20 +29,12 @@ func (t *ToolingControllerUpper) SqlDriversController() {
 		enums.MySQL, enums.Cassandra, enums.MongoDB, enums.Default, enums.Back)),
 		"sqlDrivers")
 
-	for _, choice := range tools {
-		switch choice {
-		case enums.Postgres:
-			t.Exec(&commandsStruct, enums.Postgres, enums.PostgresPackage)
-		case enums.MySQL:
-			t.Exec(&commandsStruct, enums.MySQL, enums.MysqlPackage)
-		case enums.Cassandra:
-			t.Exec(&commandsStruct, enums.Cassandra, enums.CassandraPackage)
-		case enums.MongoDB:
-			t.Exec(&commandsStruct, enums.MongoDB, enums.MongoPackage)
-		case enums.Default:
-			t.Exit(&commandsStruct)
-		case enums.Back:
-			t.Back(&commandsStruct, "")
-		}
+	maps := map[string]string{
+		mongoDB:   mongoPackage,
+		cassandra: cassandraPackage,
+		postgres:  postgresPackage,
+		mySQL:     mysqlPackage,
 	}
+
+	t.executeChoices(maps, tools)
 }
