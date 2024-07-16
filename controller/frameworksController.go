@@ -12,10 +12,9 @@ func (t *ToolingControllerUpper) FrameworkController() {
 	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(frameworkChoices, enums.Gin,
 		enums.Echo, enums.Chi, enums.Fiber, enums.Default, enums.Back)), "frameworks")
 
-
-	maps := map[string]string {
-		
-	}	
+	maps := map[string]string{
+		enums.Gin: enums.GinPakcage,
+	}
 	for _, choice := range tools {
 		switch choice {
 		case enums.Gin:
