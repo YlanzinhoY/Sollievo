@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.ylanzinhoy.tooling_golang/enums"
 	"github.ylanzinhoy.tooling_golang/model"
 	"github.ylanzinhoy.tooling_golang/service"
+	"github.ylanzinhoy.tooling_golang/util"
 )
 
 var commandsStruct = service.CommandsStruct{}
@@ -38,4 +40,17 @@ func (t *ToolingControllerUpper) Back(commandsStruct *service.CommandsStruct, co
 
 func (s *ToolingControllerUpper) Exit(commandsStruct *service.CommandsStruct) {
 	commandsStruct.Exit()
+}
+
+func (s *ToolingControllerUpper) executeChoices(maps map[string]string, tools []string) {
+	for _, choice := range tools {
+		util.RunChoicesAndPicking(maps, choice, &service.CommandsStruct{})
+
+		switch choice {
+		case enums.Back:
+			s.Back(&commandsStruct, "")
+		case enums.Default:
+			s.Exit(&commandsStruct)
+		}
+	}
 }
