@@ -1,26 +1,28 @@
 package controller
 
 import (
-	"fmt"
-
 	"github.ylanzinhoy.tooling_golang/enums"
+)
+
+const (
+	// name
+
+	testify = "testify"
+
+	// package
+
+	testifyPackage = "go get -u github.com/stretchr/testify"
 )
 
 func (t *ToolingControllerUpper) TestsController() {
 	testsChoice := make([]string, 0)
 
-	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(testsChoice, enums.Testify,
+	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(testsChoice, testify,
 		enums.Default, enums.Back)), "tests")
 
-	for _, choice := range tools {
-		switch choice {
-		case enums.Testify:
-			t.Exec(&commandsStruct, enums.Testify, enums.TestifyPackage)
-		case enums.Default:
-			fmt.Println(enums.Purple + "Exit...")
-		case enums.Back:
-			t.Back(&commandsStruct, "")
-		}
+	maps := map[string]string{
+		testify: testifyPackage,
 	}
 
+	t.executeChoices(maps, tools)
 }

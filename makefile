@@ -6,3 +6,9 @@ run-frameworks:
 
 run-tools:
 	go run main.go tools
+
+run-tests:
+	go run main.go tests
+
+run-sqldriver:
+	go run main.go sqlDriver
