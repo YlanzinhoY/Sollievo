@@ -1,9 +1,5 @@
 package controller
 
-import (
-	"github.ylanzinhoy.tooling_golang/enums"
-)
-
 const (
 	//names
 
@@ -21,16 +17,13 @@ const (
 )
 
 func (t *ToolingControllerUpper) FrameworkController() {
-	frameworkChoices := make([]string, 0)
-
-	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(frameworkChoices, gin,
-		echo, chi, fiber, enums.Default, enums.Back)), "frameworks")
-
 	maps := map[string]string{
 		gin:   ginPakcage,
 		echo:  echoPackage,
 		fiber: fiberPackage,
 		chi:   chiPackage,
 	}
+	modelTools.Tools = maps
+	tools := commandsStruct.Choices(modelTools.ToolsChoice(), "frameworks")
 	t.executeChoices(maps, tools)
 }

@@ -1,9 +1,5 @@
 package controller
 
-import (
-	"github.ylanzinhoy.tooling_golang/enums"
-)
-
 const (
 	// name
 
@@ -15,15 +11,13 @@ const (
 )
 
 func (t *ToolingControllerUpper) TestsController() {
-	testsChoice := make([]string, 0)
-	
-
-	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(testsChoice, testify,
-		enums.Default, enums.Back)), "tests")
-
 	maps := map[string]string{
 		testify: testifyPackage,
 	}
+
+	modelTools.Tools = maps
+
+	tools := commandsStruct.Choices(modelTools.ToolsChoice(), "tests")
 
 	t.executeChoices(maps, tools)
 }

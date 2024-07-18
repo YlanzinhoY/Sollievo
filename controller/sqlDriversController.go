@@ -1,9 +1,5 @@
 package controller
 
-import (
-	"github.ylanzinhoy.tooling_golang/model"
-)
-
 const (
 	// names
 
@@ -26,12 +22,9 @@ func (t *ToolingControllerUpper) SqlDriversController() {
 		postgres:  postgresPackage,
 		mySQL:     mysqlPackage,
 	}
+	modelTools.Tools = maps
 
-	toolsStruct := &model.Tools{
-		Tools: maps,
-	}
-
-	tools := commandsStruct.Choices(toolsStruct.ToolsChoice(), "sqlDrivers")
+	tools := commandsStruct.Choices(modelTools.ToolsChoice(), "sqlDrivers")
 
 	t.executeChoices(maps, tools)
 }

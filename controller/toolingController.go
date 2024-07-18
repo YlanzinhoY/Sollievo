@@ -18,10 +18,6 @@ const (
 )
 
 func (t *ToolingControllerUpper) ToolingController() {
-	toolsChoices := make([]string, 0)
-
-	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(toolsChoices,
-		gorm, viper, wire, prometheus)), "tools")
 
 	maps := map[string]string{
 		gorm:       gormPackage,
@@ -29,6 +25,7 @@ func (t *ToolingControllerUpper) ToolingController() {
 		wire:       wirePackage,
 		prometheus: prometheusPackage,
 	}
-
+	modelTools.Tools = maps
+	tools := commandsStruct.Choices(modelTools.ToolsChoice(), "tools")
 	t.executeChoices(maps, tools)
 }
