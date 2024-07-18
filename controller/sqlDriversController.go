@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.ylanzinhoy.tooling_golang/enums"
+	"github.ylanzinhoy.tooling_golang/model"
 )
 
 const (
@@ -20,19 +20,18 @@ const (
 )
 
 func (t *ToolingControllerUpper) SqlDriversController() {
-
-	driversChoice := make([]string, 0)
-
-	tools := commandsStruct.Choices(modelTools.ToolsChoice(append(driversChoice, postgres,
-		mySQL, cassandra, mongoDB, enums.Default, enums.Back)),
-		"sqlDrivers")
-
 	maps := map[string]string{
 		mongoDB:   mongoPackage,
 		cassandra: cassandraPackage,
 		postgres:  postgresPackage,
 		mySQL:     mysqlPackage,
 	}
+
+	toolsStruct := &model.Tools{
+		Tools: maps,
+	}
+
+	tools := commandsStruct.Choices(toolsStruct.ToolsChoice(), "sqlDrivers")
 
 	t.executeChoices(maps, tools)
 }

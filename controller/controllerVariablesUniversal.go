@@ -5,13 +5,11 @@ import (
 	"net/http"
 
 	"github.ylanzinhoy.tooling_golang/enums"
-	"github.ylanzinhoy.tooling_golang/model"
 	"github.ylanzinhoy.tooling_golang/service"
 	"github.ylanzinhoy.tooling_golang/util"
 )
 
 var commandsStruct = service.CommandsStruct{}
-var modelTools = model.Tools{}
 
 type ToolsServiceInterface interface {
 	Exec(commandsStruct *service.CommandsStruct, value, goPackage string)
