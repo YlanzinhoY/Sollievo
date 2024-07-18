@@ -1,5 +1,9 @@
 package controller
 
+import (
+	"fmt"
+)
+
 const (
 	// name
 
@@ -17,7 +21,14 @@ func (t *ToolingControllerUpper) TestsController() {
 
 	modelTools.Tools = maps
 
-	tools := commandsStruct.Choices(modelTools.ToolsChoice(), "tests")
+	res, err := modelTools.ToolsChoice()
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	tools := commandsStruct.Choices(res, "tests")
 
 	t.executeChoices(maps, tools)
 }

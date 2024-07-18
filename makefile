@@ -12,3 +12,6 @@ run-tests:
 
 run-sqldriver:
 	go run main.go sqlDriver
+
+clear-dep:
+	go mod tidy

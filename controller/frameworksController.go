@@ -1,5 +1,9 @@
 package controller
 
+import (
+	"fmt"
+)
+
 const (
 	//names
 
@@ -24,6 +28,13 @@ func (t *ToolingControllerUpper) FrameworkController() {
 		chi:   chiPackage,
 	}
 	modelTools.Tools = maps
-	tools := commandsStruct.Choices(modelTools.ToolsChoice(), "frameworks")
+
+	res, err := modelTools.ToolsChoice()
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	tools := commandsStruct.Choices(res, "frameworks")
 	t.executeChoices(maps, tools)
 }

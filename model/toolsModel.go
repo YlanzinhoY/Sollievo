@@ -4,11 +4,11 @@ type Tools struct {
 	Tools map[string]string
 }
 
-func (t *Tools) ToolsChoice() []string {
-	array := make([]string, 0)
+func (t *Tools) ToolsChoice() ([]string, error) {
+	array := make([]string, 0, 10)
 	for k := range t.Tools {
-		return append(array, k)
+		array = append(array, k)
 	}
 
-	return nil
+	return array, nil
 }

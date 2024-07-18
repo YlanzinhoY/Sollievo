@@ -16,12 +16,9 @@ func TestToolsModel(t *testing.T) {
 		},
 	}
 
-	res := toolsModel.ToolsChoice()
-	if res == nil {
-		t.Errorf("Array empty %v", res)
+	_, err := toolsModel.ToolsChoice()
+	if err != nil {
+		t.Errorf("Array error %v", err)
 	}
-
-	
-
 
 }

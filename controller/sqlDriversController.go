@@ -1,5 +1,9 @@
 package controller
 
+import (
+	"fmt"
+)
+
 const (
 	// names
 
@@ -23,8 +27,14 @@ func (t *ToolingControllerUpper) SqlDriversController() {
 		mySQL:     mysqlPackage,
 	}
 	modelTools.Tools = maps
+	res, err := modelTools.ToolsChoice()
 
-	tools := commandsStruct.Choices(modelTools.ToolsChoice(), "sqlDrivers")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	tools := commandsStruct.Choices(res, "sqlDrivers")
 
 	t.executeChoices(maps, tools)
 }
