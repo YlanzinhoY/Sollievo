@@ -2,8 +2,9 @@ package service
 
 import (
 	"fmt"
-	"github.com/AlecAivazis/survey/v2"
 	"log"
+
+	"github.com/AlecAivazis/survey/v2"
 )
 
 func (s *CommandsStruct) Choices(args []string, choice string) []string {
@@ -16,7 +17,6 @@ func (s *CommandsStruct) Choices(args []string, choice string) []string {
 		Renderer: survey.Renderer{},
 		Message:  fmt.Sprintf("Choose %s", choice),
 		Options:  choices,
-		
 	}
 
 	err := survey.AskOne(prompt, &choiceType)
