@@ -12,6 +12,8 @@ const (
 	viper      = "Viper"
 	wire       = "Wire"
 	prometheus = "Prometheus"
+	fx         = "Fx"
+	uuid       = "Uuid"
 
 	// packages
 
@@ -19,6 +21,8 @@ const (
 	viperPackage      = "go get github.com/spf13/viper"
 	wirePackage       = "go install github.com/google/wire/cmd/wire@latest"
 	prometheusPackage = "go get github.com/prometheus/prometheus@latest"
+	fxPackage         = "go get go.uber.org/fx@v1"
+	uuidPackage       = "https://github.com/google/uuid"
 )
 
 func (t *ToolingControllerUpper) ToolingController() {
@@ -28,7 +32,9 @@ func (t *ToolingControllerUpper) ToolingController() {
 		viper:      viperPackage,
 		wire:       wirePackage,
 		prometheus: prometheusPackage,
+		fx:         fxPackage,
 	}
+
 	modelTools.Tools = maps
 
 	res, err := modelTools.ToolsChoice()
