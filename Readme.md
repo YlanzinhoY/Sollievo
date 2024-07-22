@@ -10,4 +10,4 @@ nano ~/.zhrc
 // vamos colocar o path no arquivo do bash ou zsh
 export Path=$Path:caminho
 ```
-![prompt](./doc/tooling_golang_image.png)
+![prompt](./doc/sollievo.png)
