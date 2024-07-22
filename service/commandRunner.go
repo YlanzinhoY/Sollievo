@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.ylanzinhoy.tooling_golang/enums"
+	"github.com/ylanzinhoy/sollievo/enums"
 )
 
 func (s *CommandsStruct) CommandRunner(name, goModCommand string) error {

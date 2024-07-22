@@ -1,5 +1,7 @@
 build:
-	GOOS=linux GOARCH=amd64 go build -o bin/linux/tooling_golang
+	GOOS=linux GOARCH=amd64 go build -o bin/linux/sollievo
+	GOOS=windows GOARCH=amd64 go build -o bin/windows/sollievo.exe
+	GOOS=darwin GOARCH=arm64 go build -o bin/macos/sollievo.exe
 
 run-frameworks:
 	go run main.go frameworks

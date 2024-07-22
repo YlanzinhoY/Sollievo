@@ -5,7 +5,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.ylanzinhoy.tooling_golang/controller"
+	"github.com/ylanzinhoy/sollievo/controller"
 )
 
 // toolsCmd represents the tools command
