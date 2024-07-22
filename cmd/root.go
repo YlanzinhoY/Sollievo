@@ -13,17 +13,20 @@ import (
 var rootCmd = &cobra.Command{
 	Use: "github.ylanzinhoy.tooling_golang",
 	Long: `
-___________           .__  .__                   ________       .__                         
-\__    ___/___   ____ |  | |__| ____    ____    /  _____/  ____ |  | _____    ____    ____  
-  |    | /  _ \ /  _ \|  | |  |/    \  / ___\  /   \  ___ /  _ \|  | \__  \  /    \  / ___\ 
-  |    |(  <_> |  <_> )  |_|  |   |  \/ /_/  > \    \_\  (  <_> )  |__/ __ \|   |  \/ /_/  >
-  |____| \____/ \____/|____/__|___|  /\___  /   \______  /\____/|____(____  /___|  /\___  / 
-                                   \//_____/           \/                 \/     \//_____/  
+   _____       _ _ _                 
+  / ____|     | | (_)                
+ | (___   ___ | | |_  _____   _____  
+  \___ \ / _ \| | | |/ _ \ \ / / _ \ 
+  ____) | (_) | | | |  __/\ V / (_) |
+ |_____/ \___/|_|_|_|\___| \_/ \___/ 
+                                     
+                                     
+
 `,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
-	Version: "0.1.4",
+	Version: "0.1.5",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
