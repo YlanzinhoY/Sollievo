@@ -14,7 +14,7 @@ const (
 
 	// packages
 	postgresPackage  = "go get github.com/lib/pq"
-	mysqlPackage     = "go get -u github.com/go-sql-driver/mysql"
+	mysqlPackage     = "go get github.com/go-sql-driver/mysql"
 	cassandraPackage = "go get github.com/gocql/gocql"
 	mongoPackage     = "go get go.mongodb.org/mongo-driver/mongo"
 )

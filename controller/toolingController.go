@@ -17,12 +17,12 @@ const (
 
 	// packages
 
-	gormPackage       = "go get -u gorm.io/gorm"
+	gormPackage       = "go get gorm.io/gorm"
 	viperPackage      = "go get github.com/spf13/viper"
 	wirePackage       = "go install github.com/google/wire/cmd/wire@latest"
 	prometheusPackage = "go get github.com/prometheus/prometheus@latest"
 	fxPackage         = "go get go.uber.org/fx@v1"
-	uuidPackage       = "https://github.com/google/uuid"
+	uuidPackage       = "go get github.com/google/uuid"
 )
 
 func (t *ToolingControllerUpper) ToolingController() {
