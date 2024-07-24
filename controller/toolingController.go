@@ -33,6 +33,7 @@ func (t *ToolingControllerUpper) ToolingController() {
 		wire:       wirePackage,
 		prometheus: prometheusPackage,
 		fx:         fxPackage,
+		uuid:       uuidPackage,
 	}
 
 	modelTools.Tools = maps
