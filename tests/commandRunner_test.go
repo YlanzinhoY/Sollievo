@@ -3,7 +3,7 @@ package tests
 import (
 	"testing"
 
-	"github.ylanzinhoy.tooling_golang/service"
+	"github.com/ylanzinhoy/sollievo/service"
 )
 
 func TestCommandRunner(t *testing.T) {

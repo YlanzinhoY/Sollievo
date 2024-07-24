@@ -4,7 +4,7 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"github.ylanzinhoy.tooling_golang/controller"
+	"github.com/ylanzinhoy/sollievo/controller"
 
 	"github.com/spf13/cobra"
 )

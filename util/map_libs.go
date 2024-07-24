@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.ylanzinhoy.tooling_golang/service"
+	"github.com/ylanzinhoy/sollievo/service"
 )
 
 func RunChoicesAndPicking(libs map[string]string, value string, commandRunner *service.CommandsStruct) {

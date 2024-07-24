@@ -15,11 +15,11 @@ const (
 
 	//packages
 
-	ginPakcage        = "go get -u github.com/gin-gonic/gin"
-	fiberPackage      = "go get -u github.com/gofiber/fiber/v3"
-	chiPackage        = "go get -u github.com/go-chi/chi/v5"
+	ginPakcage        = "go get github.com/gin-gonic/gin"
+	fiberPackage      = "go get github.com/gofiber/fiber/v3"
+	chiPackage        = "go get github.com/go-chi/chi/v5"
 	echoPackage       = "go get github.com/labstack/echo/v4"
-	gorillaMuxPackage = "go get -u github.com/gorilla/mux"
+	gorillaMuxPackage = "go get github.com/gorilla/mux"
 )
 
 func (t *ToolingControllerUpper) FrameworkController() {

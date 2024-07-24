@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.ylanzinhoy.tooling_golang/enums"
-	"github.ylanzinhoy.tooling_golang/model"
-	"github.ylanzinhoy.tooling_golang/service"
-	"github.ylanzinhoy.tooling_golang/util"
+	"github.com/ylanzinhoy/sollievo/enums"
+	"github.com/ylanzinhoy/sollievo/model"
+	"github.com/ylanzinhoy/sollievo/service"
+	"github.com/ylanzinhoy/sollievo/util"
 )
 
 var commandsStruct = service.CommandsStruct{}

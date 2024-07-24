@@ -11,7 +11,7 @@ const (
 
 	// package
 
-	testifyPackage = "go get -u github.com/stretchr/testify"
+	testifyPackage = "go get github.com/stretchr/testify"
 )
 
 func (t *ToolingControllerUpper) TestsController() {
