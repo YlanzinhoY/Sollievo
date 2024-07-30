@@ -5,16 +5,17 @@ import (
 	"log"
 
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/ylanzinhoy/sollievo/model"
 )
 
 func (s *CommandsStruct) WebChoice() {
 
-	questions := 2
-
-	for questions >= 0 {
+	for {
 		firstQuestion()
+
 		secondQuestion()
-		questions--
+
+		break
 
 	}
 }
@@ -30,26 +31,44 @@ func firstQuestion() {
 
 	var frameworks string
 	err := survey.AskOne(prompt, &frameworks, nil)
-	processAwnser(types, frameworks)
+
+	cs := CommandsStruct{}
+
+	cs.CommandRunnerNodeJS("react", "npx create-react-app my-app")
+
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
 func secondQuestion() {
-	types := []string{"Htmx", "react"}
+	modeltools := model.Tools{}
+
+	fm := model.FrameworkModel{}
+
+	modeltools.Tools = fm.ToolsMap()
+
+	res, err := modeltools.ToolsChoice()
+
+	if err != nil {
+		log.Panic(err)
+		return
+	}
 
 	prompt := &survey.Select{
 		Renderer: survey.Renderer{},
-		Message:  fmt.Sprintf("Second Choose %s", types),
-		Options:  types,
+		Message:  fmt.Sprintf("qual framework voce quer? %s", res),
+		Options:  res,
 	}
 
-	err := survey.AskOne(prompt, &types)
+	var choice string
+
+	err = survey.AskOne(prompt, &choice, nil)
 
 	if err != nil {
 		log.Fatal(err)
 	}
+
 }
 
 func processAwnser(awnsers []string, choice string) {
@@ -60,8 +79,9 @@ func processAwnser(awnsers []string, choice string) {
 		if awnsers[i] == choice {
 			// generateAwnser
 			fmt.Printf("choice %s\n", choice)
+			cs := CommandsStruct{}
+			cs.CommandRunner(choice, "web")
 		}
-
 	}
 
 }
