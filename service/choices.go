@@ -27,3 +27,6 @@ func (s *CommandsStruct) Choices(args []string, choice string) []string {
 	}
 	return choiceType
 }
+
+
+
