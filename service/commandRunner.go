@@ -56,7 +56,7 @@ func (s *CommandsStruct) Back(command string) error {
 	if command == "" {
 		command = "tooling_golang"
 	}
-	cmd = exec.Command("bash", "-c", command)
+	cmd = exec.Command("zsh", "-c", command)
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

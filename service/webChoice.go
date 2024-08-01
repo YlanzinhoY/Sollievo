@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/ylanzinhoy/sollievo/model"
@@ -10,23 +11,17 @@ import (
 
 func (s *CommandsStruct) WebChoice() {
 
-	for {
-		firstQuestion()
+	firstQuestion()
 
-		secondQuestion()
-
-		break
-
-	}
 }
 
 func firstQuestion() {
+
 	types := []string{"Htmx", "react"}
 
 	prompt := &survey.Select{
-		Renderer: survey.Renderer{},
-		Message:  "First Choose",
-		Options:  types,
+		Message: "First Choose",
+		Options: types,
 	}
 
 	var frameworks string
@@ -34,11 +29,45 @@ func firstQuestion() {
 
 	cs := CommandsStruct{}
 
-	cs.CommandRunnerNodeJS("react", "npx create-react-app my-app")
+	switch frameworks {
+	case "react":
+		var pn string
+		fmt.Println("Nome do projeto?")
+		_, err := fmt.Scan(&pn)
+		if err != nil {
+			return
+		}
+		command := fmt.Sprintf("pnpm create vite@latest %s  --template react-ts", pn)
+		err = cs.CommandRunnerNodeJS("react", command)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		acceptTailwind(&cs, pn)
+		break
+	}
 
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func acceptTailwind(cs *CommandsStruct, path string) {
+	var choice string
+	fmt.Println("Deseja Tailwind? s/n")
+	_, err := fmt.Scan(&choice)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if choice == strings.ToUpper(choice) || choice == strings.ToLower(choice) {
+		err = cs.CommandRunnerNodeJS("tailwind", fmt.Sprintf("cd %s && npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p", path))
+		if err != nil {
+			log.Panic(err)
+		}
+	}
+
 }
 
 func secondQuestion() {
