@@ -2,15 +2,13 @@ package service
 
 import (
 	"fmt"
-	"log"
-
 	"github.com/AlecAivazis/survey/v2"
+	"log"
 )
 
 func (s *CommandsStruct) Choices(args []string, choice string) []string {
 
 	var choices = args
-
 	var choiceType []string
 
 	prompt := &survey.MultiSelect{
