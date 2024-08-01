@@ -78,11 +78,12 @@ func (s *CommandsStruct) CommandRunnerInteractivePath(name, command, path string
 	return nil
 }
 
+// deprected
 func (s *CommandsStruct) Back(command string) error {
 	var cmd *exec.Cmd
 
 	if command == "" {
-		command = "tooling_golang"
+		command = "sollievo"
 	}
 	cmd = exec.Command("zsh", "-c", command)
 

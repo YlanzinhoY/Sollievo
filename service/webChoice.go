@@ -60,7 +60,7 @@ func acceptTailwind(cs *CommandsStruct, path string) {
 		log.Fatal(err)
 	}
 
-	if choice == strings.ToUpper("s") || choice == strings.ToLower("s") {
+	if choice == strings.ToLower("s") {
 		err = cs.CommandRunnerNodeJS("tailwind", fmt.Sprintf("cd %s && npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p", path))
 		if err != nil {
 			log.Panic(err)
