@@ -2,12 +2,9 @@ package service
 
 import (
 	"fmt"
-	"log"
-	"os"
-	"strings"
-
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/ylanzinhoy/sollievo/model"
+	"log"
+	"strings"
 )
 
 func (s *CommandsStruct) WebChoice() {
@@ -32,25 +29,26 @@ func firstQuestion() {
 
 	switch frameworks {
 	case "react":
-		var pn string
-		fmt.Println("Nome do projeto?")
-		_, err := fmt.Scan(&pn)
-		if err != nil {
-			return
-		}
-		command := fmt.Sprintf("pnpm create vite@latest %s  --template react-ts", pn)
-		err = cs.CommandRunnerNodeJS("react", command)
-		if err != nil {
-			log.Fatal(err)
-		}
-
+		pn := createReactApp(&cs)
 		acceptTailwind(&cs, pn)
-		break
 	}
 
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func createReactApp(cs *CommandsStruct) string {
+	var pn string
+	fmt.Println("Nome do projeto?")
+	_, err := fmt.Scan(&pn)
+
+	command := fmt.Sprintf("pnpm create vite@latest %s  --template react-ts", pn)
+	err = cs.CommandRunnerNodeJS("react", command)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return pn
 }
 
 func acceptTailwind(cs *CommandsStruct, path string) {
@@ -62,58 +60,38 @@ func acceptTailwind(cs *CommandsStruct, path string) {
 		log.Fatal(err)
 	}
 
-	if choice == strings.ToUpper("s") || choice == strings.ToLower("s") {
+	if choice == strings.ToLower("s") {
 		err = cs.CommandRunnerNodeJS("tailwind", fmt.Sprintf("cd %s && npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p", path))
 		if err != nil {
 			log.Panic(err)
 		}
-	} else {
-		os.Exit(1)
 	}
 
+	acceptBackend(cs, path)
 }
 
-func secondQuestion() {
-	modeltools := model.Tools{}
-
-	fm := model.FrameworkModel{}
-
-	modeltools.Tools = fm.ToolsMap()
-
-	res, err := modeltools.ToolsChoice()
-
-	if err != nil {
-		log.Panic(err)
-		return
-	}
-
-	prompt := &survey.Select{
-		Renderer: survey.Renderer{},
-		Message:  fmt.Sprintf("qual framework voce quer? %s", res),
-		Options:  res,
-	}
-
+func acceptBackend(cs *CommandsStruct, path string) {
 	var choice string
-
-	err = survey.AskOne(prompt, &choice, nil)
+	fmt.Println("Deseja Backend? s/n")
+	_, err := fmt.Scan(&choice)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-}
+	creatingFilesBackEnd(path)
 
-func processAwnser(awnsers []string, choice string) {
+	if choice == strings.ToLower("s") {
+		err = cs.CommandRunnerInteractivePath("go", "mod init backend", fmt.Sprintf("%s/backend", path))
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
-	length := len(awnsers) - 1
-
-	for i := 0; i < length; i++ {
-		if awnsers[i] == choice {
-			// generateAwnser
-			fmt.Printf("choice %s\n", choice)
-			cs := CommandsStruct{}
-			cs.CommandRunner(choice, "web")
+		err = cs.CommandRunnerInteractivePath("sollievo", "frameworks", fmt.Sprintf("%s/backend", path))
+		if err != nil {
+			fmt.Println(err)
+			return
 		}
 	}
-
 }
