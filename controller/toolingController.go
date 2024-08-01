@@ -7,7 +7,6 @@ import (
 const (
 
 	// names
-
 	gorm       = "Gorm"
 	viper      = "Viper"
 	wire       = "Wire"

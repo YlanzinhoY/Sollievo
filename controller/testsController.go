@@ -6,11 +6,9 @@ import (
 
 const (
 	// name
-
 	testify = "testify"
 
 	// package
-
 	testifyPackage = "go get github.com/stretchr/testify"
 )
 

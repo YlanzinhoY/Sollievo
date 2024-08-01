@@ -3,6 +3,9 @@ build:
 	GOOS=windows GOARCH=amd64 go build -o bin/windows/sollievo.exe
 	GOOS=darwin GOARCH=arm64 go build -o bin/macos/sollievo
 
+build-test:
+	GOOS=linux GOARCH=amd64 go build -o bin/linux/sollievo-test
+
 run-frameworks:
 	go run main.go frameworks
 
