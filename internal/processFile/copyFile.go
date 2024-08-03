@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func CopyFile(srcFileName, destFile string) error {
+func copyFile(srcFileName, destFile string) error {
 
 	srcFile, err := os.Open(srcFileName)
 
