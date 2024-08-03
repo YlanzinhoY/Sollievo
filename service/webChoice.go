@@ -2,9 +2,10 @@ package service
 
 import (
 	"fmt"
-	"github.com/AlecAivazis/survey/v2"
 	"log"
 	"strings"
+
+	"github.com/AlecAivazis/survey/v2"
 )
 
 func (s *CommandsStruct) WebChoice() {
@@ -15,7 +16,7 @@ func (s *CommandsStruct) WebChoice() {
 
 func firstQuestion() {
 
-	types := []string{"Htmx", "react"}
+	types := []string{"react", "flutter"}
 
 	prompt := &survey.Select{
 		Message: "First Choose",
@@ -42,6 +43,10 @@ func createReactApp(cs *CommandsStruct) string {
 	var pn string
 	fmt.Println("Nome do projeto?")
 	_, err := fmt.Scan(&pn)
+
+	if err != nil {
+		panic(err)
+	}
 
 	command := fmt.Sprintf("pnpm create vite@latest %s  --template react-ts", pn)
 	err = cs.CommandRunnerNodeJS("react", command)
@@ -81,8 +86,16 @@ func acceptBackend(cs *CommandsStruct, path string) {
 
 	creatingFilesBackEnd(path)
 
+	var gomodName string
+
+	fmt.Println("Nome que vc quer para seu go mod")
+
+	fmt.Scan(&gomodName)
+
+	goModInit := fmt.Sprintf("mod init %s", gomodName)
+
 	if choice == strings.ToLower("s") {
-		err = cs.CommandRunnerInteractivePath("go", "mod init backend", fmt.Sprintf("%s/backend", path))
+		err = cs.CommandRunnerInteractivePath("go", goModInit, fmt.Sprintf("%s/backend", path))
 		if err != nil {
 			fmt.Println(err)
 			return
