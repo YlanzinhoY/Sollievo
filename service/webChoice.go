@@ -3,9 +3,12 @@ package service
 import (
 	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
+	processfile "github.com/ylanzinhoy/sollievo/internal/processFile"
 )
 
 func (s *CommandsStruct) WebChoice() {
@@ -82,6 +85,7 @@ func acceptBackend(cs *CommandsStruct, path string) {
 
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 
 	creatingFilesBackEnd(path)
@@ -89,13 +93,16 @@ func acceptBackend(cs *CommandsStruct, path string) {
 	var gomodName string
 
 	fmt.Println("Nome que vc quer para seu go mod")
-
-	fmt.Scan(&gomodName)
-
+	_, err = fmt.Scan(&gomodName)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	goModInit := fmt.Sprintf("mod init %s", gomodName)
+	backEndPath := fmt.Sprintf("%s/backend", path)
 
 	if choice == strings.ToLower("s") {
-		err = cs.CommandRunnerInteractivePath("go", goModInit, fmt.Sprintf("%s/backend", path))
+		err = cs.CommandRunnerInteractivePath("go", goModInit, backEndPath)
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -106,5 +113,51 @@ func acceptBackend(cs *CommandsStruct, path string) {
 			fmt.Println(err)
 			return
 		}
+
+		generateFiles(backEndPath, ".air.toml", "internal/processFile/.air.toml")
 	}
+}
+
+func generateFiles(backEndPath, filename, path string) error {
+	wd, err := os.Getwd()
+	if err != nil {
+		fmt.Println("Erro ao obter o diretório de trabalho:", err)
+		return err
+	}
+	fmt.Println("Diretório de trabalho atual:", wd)
+
+	// Atualize o caminho do arquivo de origem conforme necessário
+	srcFile := filepath.Join(wd, path)
+	dstFile := filepath.Join(backEndPath, filename)
+
+	// Adicionando depuração
+	absSrcFile, err := filepath.Abs(srcFile)
+	if err != nil {
+		fmt.Println("Erro ao obter caminho absoluto do arquivo de origem:", err)
+		return err
+	}
+	fmt.Println("Caminho absoluto do arquivo de origem:", absSrcFile)
+
+	absDstFile, err := filepath.Abs(dstFile)
+	if err != nil {
+		fmt.Println("Erro ao obter caminho absoluto do arquivo de destino:", err)
+		return err
+	}
+	fmt.Println("Caminho absoluto do arquivo de destino:", absDstFile)
+
+	// Verifique se o arquivo de origem existe
+	if _, err := os.Stat(absSrcFile); os.IsNotExist(err) {
+		fmt.Println("Arquivo de origem não existe:", absSrcFile)
+		return err
+	}
+
+	err = processfile.CopyFile(absSrcFile, absDstFile)
+	if err != nil {
+		fmt.Println("Erro ao copiar o arquivo:", err)
+		return err
+	}
+
+	fmt.Printf("%s copiado com sucesso\n", filename)
+
+	return nil
 }
