@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/ylanzinhoy/sollievo/enums"
-	"github.com/ylanzinhoy/sollievo/model"
-	"github.com/ylanzinhoy/sollievo/service"
-	"github.com/ylanzinhoy/sollievo/util"
+	"github.com/ylanzinhoy/sollievo/internal/enums"
+	"github.com/ylanzinhoy/sollievo/internal/model"
+	"github.com/ylanzinhoy/sollievo/internal/service"
+	"github.com/ylanzinhoy/sollievo/internal/util"
 )
 
 var commandsStruct = service.CommandsStruct{}

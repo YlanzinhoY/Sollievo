@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/ylanzinhoy/sollievo/enums"
+	"github.com/ylanzinhoy/sollievo/internal/enums"
 )
 
 func (s *CommandsStruct) CommandRunner(name, goModCommand string) error {
