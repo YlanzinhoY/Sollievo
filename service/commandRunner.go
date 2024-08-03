@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/ylanzinhoy/sollievo/enums"
 )
@@ -50,11 +51,39 @@ func (s *CommandsStruct) CommandRunnerNodeJS(name, packageManager string) error 
 	return nil
 }
 
+func (s *CommandsStruct) CommandRunnerInteractive(name, command string) error {
+	cmd := exec.Command(name, strings.Fields(command)...)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	if err != nil {
+		log.Printf("Command %s failed with error: %v\n", command, err)
+		return err
+	}
+	return nil
+}
+
+func (s *CommandsStruct) CommandRunnerInteractivePath(name, command, path string) error {
+	cmd := exec.Command(name, strings.Fields(command)...)
+	cmd.Dir = path
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	if err != nil {
+		log.Printf("Command %s failed with error: %v\n", command, err)
+		return err
+	}
+	return nil
+}
+
+// deprected
 func (s *CommandsStruct) Back(command string) error {
 	var cmd *exec.Cmd
 
 	if command == "" {
-		command = "tooling_golang"
+		command = "sollievo"
 	}
 	cmd = exec.Command("zsh", "-c", command)
 
