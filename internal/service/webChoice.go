@@ -85,8 +85,10 @@ func acceptBackend(cs *CommandsStruct, path string) {
 		log.Fatal(err)
 		return
 	}
-
-	creatingFilesBackEnd(path)
+	cf := CreatingFilesBackEnd{
+		path: path,
+	}
+	cf.creatingFilesBackEnd()
 
 	var gomodName string
 
@@ -112,6 +114,11 @@ func acceptBackend(cs *CommandsStruct, path string) {
 			return
 		}
 
-		processfile.GenerateFiles(backEndPath, ".air.toml", "internal/processFile/.air.toml")
+		err = processfile.GenerateFiles(backEndPath, ".air.toml", "internal/processFile/.air.toml")
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 	}
 }
