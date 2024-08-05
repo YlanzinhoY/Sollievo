@@ -1,13 +1,15 @@
-### Como instalar o tooling_golang no seu path
+### How install Sollievo in your path?
 
-- depois de ter baixado aqui em `releases` a versao do tooling_golang, você vai ter o binario na sua maquina, coloque esse binario aonde você quer, abra o terminal aonde está esse binario e de um pwd. agora você copia esse path gerado e vamos colocar tanto no zsh e no bash, o caminho é o mesmo.
+- after having downloaded the version of Sollievo here in `releases`, you will have the binary on your machine, put this binary where you want, open the terminal where this binary is and a pwd. Now you copy this generated path and we will put it in both zsh and bash, the path is the same.
 
+### Linux & Max
 ```
-// vamos abrir o arquivo do bash ou zsh
-nano ~/.bashrc
-nano ~/.zhrc
+// lets get open your bashrc or zshrc
+nano ~/.bashrc or nano ~/.zshrc
 
-// vamos colocar o path no arquivo do bash ou zsh
-export Path=$Path:caminho
+// lets put on the path in the bashrc or zshrc file
+export Path=$Path:path
+
+// run sollievo in your terminal
 ```
 ![prompt](./doc/sollievo.png)
