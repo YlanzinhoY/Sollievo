@@ -85,8 +85,11 @@ func acceptBackend(cs *CommandsStruct, path string) {
 		log.Fatal(err)
 		return
 	}
-	cf := CreatingFilesBackEnd{
-		path: path,
+	backEndPath := fmt.Sprintf("%s/backend", path)
+
+	cf := &CreatingFilesBackEnd{
+		path:         path,
+		completePath: backEndPath,
 	}
 	cf.creatingFilesBackEnd()
 
@@ -99,7 +102,6 @@ func acceptBackend(cs *CommandsStruct, path string) {
 		return
 	}
 	goModInit := fmt.Sprintf("mod init %s", gomodName)
-	backEndPath := fmt.Sprintf("%s/backend", path)
 
 	if choice == strings.ToLower("s") {
 		err = cs.CommandRunnerInteractivePath("go", goModInit, backEndPath)
@@ -120,5 +122,7 @@ func acceptBackend(cs *CommandsStruct, path string) {
 			fmt.Println(err)
 			return
 		}
+
+		cf.creatingStructureBase()
 	}
 }
