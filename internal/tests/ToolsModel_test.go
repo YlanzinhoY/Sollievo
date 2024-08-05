@@ -3,7 +3,7 @@ package tests
 import (
 	"testing"
 
-	"github.com/ylanzinhoy/sollievo/model"
+	"github.com/ylanzinhoy/sollievo/internal/model"
 )
 
 func TestToolsModel(t *testing.T) {

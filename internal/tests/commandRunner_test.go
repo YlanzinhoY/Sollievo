@@ -3,7 +3,7 @@ package tests
 import (
 	"testing"
 
-	"github.com/ylanzinhoy/sollievo/service"
+	"github.com/ylanzinhoy/sollievo/internal/service"
 )
 
 func TestCommandRunner(t *testing.T) {
