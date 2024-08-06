@@ -2,7 +2,7 @@
 
 - after having downloaded the version of Sollievo here in `releases`, you will have the binary on your machine, put this binary where you want, open the terminal where this binary is and a pwd. Now you copy this generated path and we will put it in both zsh and bash, the path is the same.
 
-### Linux & Max
+### Linux & Mac
 ```
 // lets get open your bashrc or zshrc
 nano ~/.bashrc or nano ~/.zshrc
