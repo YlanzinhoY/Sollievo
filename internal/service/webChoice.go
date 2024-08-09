@@ -86,12 +86,16 @@ func acceptBackend(cs *CommandsStruct, path string) {
 		log.Fatal(err)
 		return
 	}
+	backEndPath := fmt.Sprintf("%s/backend", path)
+
 
 	if strings.ToLower(choice) == "n" {
 		os.Exit(1)
 	}
 
 	backEndPath := fmt.Sprintf("%s/backend", path)
+
+
 
 	cf := &CreatingFilesBackEnd{
 		path:         path,
