@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
@@ -85,6 +86,11 @@ func acceptBackend(cs *CommandsStruct, path string) {
 		log.Fatal(err)
 		return
 	}
+
+	if strings.ToLower(choice) == "n" {
+		os.Exit(1)
+	}
+
 	backEndPath := fmt.Sprintf("%s/backend", path)
 
 	cf := &CreatingFilesBackEnd{
