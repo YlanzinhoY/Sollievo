@@ -1,6 +1,7 @@
 package service
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -44,18 +45,23 @@ func firstQuestion() {
 func createReactApp(cs *CommandsStruct) string {
 	var pn string
 	fmt.Println("Nome do projeto?")
-	_, err := fmt.Scan(&pn)
+	reader := bufio.NewReader(os.Stdin)
+	pn, err := reader.ReadString('\n')
 
 	if err != nil {
 		panic(err)
 	}
 
-	command := fmt.Sprintf("pnpm create vite@latest %s  --template react-ts", pn)
+	pn = strings.TrimSpace(pn)
+
+	newPn := strings.ReplaceAll(pn, " ", "_")
+
+	command := fmt.Sprintf("pnpm create vite@latest %s  --template react-ts", newPn)
 	err = cs.CommandRunnerNodeJS("react", command)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return pn
+	return newPn
 }
 
 func acceptTailwind(cs *CommandsStruct, path string) {
