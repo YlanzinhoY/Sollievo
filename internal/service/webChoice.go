@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
-	processfile "github.com/ylanzinhoy/sollievo/internal/processFile"
 )
 
 func (s *CommandsStruct) WebChoice() {
@@ -128,12 +127,16 @@ func acceptBackend(cs *CommandsStruct, path string) {
 			return
 		}
 
-		err = processfile.GenerateFiles(backEndPath, ".air.toml", "internal/processFile/.air.toml")
+		// err = processfile.GenerateFiles(backEndPath, ".air.toml", "internal/processFile/.air.toml")
+
+		err = cf.CreateFile("air.toml", cf.AirToml())
 
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
+
+		
 
 		cf.creatingStructureBase()
 	}
