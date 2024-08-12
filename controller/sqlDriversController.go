@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"fmt"
+	"github.com/ylanzinhoy/sollievo/internal/model"
 )
 
 const (
@@ -19,22 +19,14 @@ const (
 	mongoPackage     = "go get go.mongodb.org/mongo-driver/mongo"
 )
 
-func (t *ToolingControllerUpper) SqlDriversController() {
-	maps := map[string]string{
-		mongoDB:   mongoPackage,
-		cassandra: cassandraPackage,
-		postgres:  postgresPackage,
-		mySQL:     mysqlPackage,
-	}
-	modelTools.Tools = maps
-	res, err := modelTools.ToolsChoice()
+func SqlDriversController() {
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	tools := commandsStruct.Choices(res, "sqlDrivers")
-
-	t.executeChoices(maps, tools)
+	model.NewControllerModel("sqlDrivers",
+		map[string]string{
+			mongoDB:   mongoPackage,
+			cassandra: cassandraPackage,
+			postgres:  postgresPackage,
+			mySQL:     mysqlPackage,
+		},
+		&commandsStruct).ProcessCommand()
 }
