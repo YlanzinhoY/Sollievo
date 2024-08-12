@@ -12,6 +12,7 @@ import (
 
 var commandsStruct = service.CommandsStruct{}
 var modelTools = &model.Tools{}
+var controllerModel = &model.ControllerModel{}
 
 type ToolsServiceInterface interface {
 	Exec(commandsStruct *service.CommandsStruct, value, goPackage string)
