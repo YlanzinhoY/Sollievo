@@ -13,7 +13,6 @@ var toolsCmd = &cobra.Command{
 	Use:   "tools",
 	Short: "General tools for Go",
 	Run: func(cmd *cobra.Command, args []string) {
-		controller := controller.ToolingControllerUpper{}
 		controller.ToolingController()
 	},
 }
