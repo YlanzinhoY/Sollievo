@@ -18,7 +18,7 @@ func (s *CommandsStruct) WebChoice() {
 
 func firstQuestion() {
 
-	types := []string{"react", "flutter"}
+	types := []string{"react", "vue"}
 
 	prompt := &survey.Select{
 		Message: "First Choose",
@@ -32,7 +32,10 @@ func firstQuestion() {
 
 	switch frameworks {
 	case "react":
-		pn := createReactApp(&cs)
+		pn := createApp(&cs, "react")
+		acceptTailwind(&cs, pn)
+	case "vue":
+		pn := createApp(&cs, "vue")
 		acceptTailwind(&cs, pn)
 	}
 
@@ -41,7 +44,7 @@ func firstQuestion() {
 	}
 }
 
-func createReactApp(cs *CommandsStruct) string {
+func createApp(cs *CommandsStruct, frameworkName string) string {
 	var pn string
 	fmt.Println("Nome do projeto?")
 	reader := bufio.NewReader(os.Stdin)
@@ -55,8 +58,8 @@ func createReactApp(cs *CommandsStruct) string {
 
 	newPn := strings.ReplaceAll(pn, " ", "_")
 
-	command := fmt.Sprintf("pnpm create vite@latest %s  --template react-ts", newPn)
-	err = cs.CommandRunnerNodeJS("react", command)
+	command := fmt.Sprintf("pnpm create vite@latest %s  --template %s-ts", newPn, frameworkName)
+	err = cs.CommandRunnerNodeJS(frameworkName, command)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -135,8 +138,6 @@ func acceptBackend(cs *CommandsStruct, path string) {
 			fmt.Println(err)
 			return
 		}
-
-		
 
 		cf.creatingStructureBase()
 	}
