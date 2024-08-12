@@ -13,7 +13,6 @@ var testsCmd = &cobra.Command{
 	Use:   "tests",
 	Short: "lib of tests",
 	Run: func(cmd *cobra.Command, args []string) {
-		controller := controller.ToolingControllerUpper{}
 		controller.TestsController()
 	},
 }

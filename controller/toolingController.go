@@ -1,7 +1,8 @@
 package controller
 
 import (
-	"fmt"
+	"github.com/ylanzinhoy/sollievo/internal/model"
+	"github.com/ylanzinhoy/sollievo/internal/service"
 )
 
 const (
@@ -24,26 +25,35 @@ const (
 	uuidPackage       = "go get github.com/google/uuid"
 )
 
-func (t *ToolingControllerUpper) ToolingController() {
+func ToolingController() {
 
-	maps := map[string]string{
+	model.NewControllerModel("tools", map[string]string{
 		gorm:       gormPackage,
 		viper:      viperPackage,
 		wire:       wirePackage,
 		prometheus: prometheusPackage,
 		fx:         fxPackage,
 		uuid:       uuidPackage,
-	}
+	}, &service.CommandsStruct{}).ProcessCommand()
 
-	modelTools.Tools = maps
+	// maps := map[string]string{
+	// 	gorm:       gormPackage,
+	// 	viper:      viperPackage,
+	// 	wire:       wirePackage,
+	// 	prometheus: prometheusPackage,
+	// 	fx:         fxPackage,
+	// 	uuid:       uuidPackage,
+	// }
 
-	res, err := modelTools.ToolsChoice()
+	// modelTools.Tools = maps
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	// res, err := modelTools.ToolsChoice()
 
-	tools := commandsStruct.Choices(res, "tools")
-	t.executeChoices(maps, tools)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+
+	// tools := commandsStruct.Choices(res, "tools")
+	// t.executeChoices(maps, tools)
 }
