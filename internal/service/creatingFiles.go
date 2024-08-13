@@ -102,7 +102,7 @@ tmp_dir = "tmp"
 `
 }
 
-func (c *CreatingFilesBackEnd) TailwindReactJS() string {
+func (c *CreatingFilesBackEnd) TailwindReactJS() {
 	data := `/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -114,7 +114,23 @@ module.exports = {
   plugins: [],
 }`
 
-	return data
+	c.injectConfigurationTailwind(data)
+
+}
+
+func (c *CreatingFilesBackEnd) TailwindVueJS() {
+	data := `module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}`
+
+	c.injectConfigurationTailwind(data)
 
 }
 
@@ -134,9 +150,9 @@ func (c *CreatingFilesBackEnd) CreateFileBackend(filename, file string) error {
 	return nil
 }
 
-func (c *CreatingFilesBackEnd) InjectConfigurationTailwind(framework string) error {
+func (c *CreatingFilesBackEnd) injectConfigurationTailwind(data string) error {
 	path := fmt.Sprintf("%s/%s", c.path, "tailwind.config.js")
-	f, err := os.Open(path)
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 	if err != nil {
 		return err
 	}
@@ -145,15 +161,20 @@ func (c *CreatingFilesBackEnd) InjectConfigurationTailwind(framework string) err
 
 	w := bufio.NewWriter(f)
 
-	bf, err := w.WriteString(framework)
-
-	defer w.Flush()
+	bf, err := w.WriteString(fmt.Sprintf("%s\n", data))
 
 	if err != nil {
 		return err
 	}
 
-	fmt.Printf("bufferzing tailwind.config.js %d bytes", bf)
+	fmt.Println(path)
+	fmt.Printf("buffering tailwind.config.js %d bytes\n", bf)
+
+	err = w.Flush()
+
+	if err != nil {
+		return err
+	}
 
 	return nil
 

@@ -33,10 +33,10 @@ func firstQuestion() {
 	switch frameworks {
 	case "react":
 		pn := createApp(&cs, "react")
-		acceptTailwind(&cs, pn)
+		acceptTailwind(&cs, pn, "react")
 	case "vue":
 		pn := createApp(&cs, "vue")
-		acceptTailwind(&cs, pn)
+		acceptTailwind(&cs, pn, "vue")
 	}
 
 	if err != nil {
@@ -66,7 +66,7 @@ func createApp(cs *CommandsStruct, frameworkName string) string {
 	return newPn
 }
 
-func acceptTailwind(cs *CommandsStruct, path string) {
+func acceptTailwind(cs *CommandsStruct, path string, frameworkName string) {
 	var choice string
 	fmt.Println("Deseja Tailwind? s/n")
 	_, err := fmt.Scan(&choice)
@@ -80,13 +80,15 @@ func acceptTailwind(cs *CommandsStruct, path string) {
 		if err != nil {
 			log.Panic(err)
 		}
-
 		cf := &CreatingFilesBackEnd{
 			path: path,
 		}
-
-		cf.InjectConfigurationTailwind(cf.TailwindReactJS())
-
+		switch frameworkName {
+		case "react":
+			cf.TailwindReactJS()
+		case "vue":
+			cf.TailwindVueJS()
+		}
 	}
 
 	acceptBackend(cs, path)
