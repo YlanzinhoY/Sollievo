@@ -80,6 +80,13 @@ func acceptTailwind(cs *CommandsStruct, path string) {
 		if err != nil {
 			log.Panic(err)
 		}
+
+		cf := &CreatingFilesBackEnd{
+			path: path,
+		}
+
+		cf.InjectConfigurationTailwind(cf.TailwindReactJS())
+
 	}
 
 	acceptBackend(cs, path)
@@ -130,9 +137,7 @@ func acceptBackend(cs *CommandsStruct, path string) {
 			return
 		}
 
-		// err = processfile.GenerateFiles(backEndPath, ".air.toml", "internal/processFile/.air.toml")
-
-		err = cf.CreateFile("air.toml", cf.AirToml())
+		err = cf.CreateFileBackend("air.toml", cf.AirToml())
 
 		if err != nil {
 			fmt.Println(err)

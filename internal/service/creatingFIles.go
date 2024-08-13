@@ -1,6 +1,7 @@
 package service
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -101,7 +102,23 @@ tmp_dir = "tmp"
 `
 }
 
-func (c *CreatingFilesBackEnd) CreateFile(filename, file string) error {
+func (c *CreatingFilesBackEnd) TailwindReactJS() string {
+	data := `/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}`
+
+	return data
+
+}
+
+func (c *CreatingFilesBackEnd) CreateFileBackend(filename, file string) error {
 	pathFile := fmt.Sprintf("%s/backend/%s", c.path, filename)
 	_, err := os.Create(pathFile)
 	if err != nil {
@@ -115,4 +132,29 @@ func (c *CreatingFilesBackEnd) CreateFile(filename, file string) error {
 	}
 
 	return nil
+}
+
+func (c *CreatingFilesBackEnd) InjectConfigurationTailwind(framework string) error {
+	path := fmt.Sprintf("%s/%s", c.path, "tailwind.config.js")
+	f, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+
+	w := bufio.NewWriter(f)
+
+	bf, err := w.WriteString(framework)
+
+	defer w.Flush()
+
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("bufferzing tailwind.config.js %d bytes", bf)
+
+	return nil
+
 }
