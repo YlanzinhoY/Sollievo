@@ -33,10 +33,10 @@ func firstQuestion() {
 	switch frameworks {
 	case "react":
 		pn := createApp(&cs, "react")
-		acceptTailwind(&cs, pn)
+		acceptTailwind(&cs, pn, "react")
 	case "vue":
 		pn := createApp(&cs, "vue")
-		acceptTailwind(&cs, pn)
+		acceptTailwind(&cs, pn, "vue")
 	}
 
 	if err != nil {
@@ -66,7 +66,7 @@ func createApp(cs *CommandsStruct, frameworkName string) string {
 	return newPn
 }
 
-func acceptTailwind(cs *CommandsStruct, path string) {
+func acceptTailwind(cs *CommandsStruct, path string, frameworkName string) {
 	var choice string
 	fmt.Println("Deseja Tailwind? s/n")
 	_, err := fmt.Scan(&choice)
@@ -79,6 +79,15 @@ func acceptTailwind(cs *CommandsStruct, path string) {
 		err = cs.CommandRunnerNodeJS("tailwind", fmt.Sprintf("cd %s && npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p", path))
 		if err != nil {
 			log.Panic(err)
+		}
+		cf := &CreatingFilesBackEnd{
+			path: path,
+		}
+		switch frameworkName {
+		case "react":
+			cf.TailwindReactJS()
+		case "vue":
+			cf.TailwindVueJS()
 		}
 	}
 
@@ -130,9 +139,7 @@ func acceptBackend(cs *CommandsStruct, path string) {
 			return
 		}
 
-		// err = processfile.GenerateFiles(backEndPath, ".air.toml", "internal/processFile/.air.toml")
-
-		err = cf.CreateFile("air.toml", cf.AirToml())
+		err = cf.CreateFileBackend("air.toml", cf.AirToml())
 
 		if err != nil {
 			fmt.Println(err)
