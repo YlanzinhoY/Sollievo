@@ -35,25 +35,4 @@ func ToolingController() {
 		fx:         fxPackage,
 		uuid:       uuidPackage,
 	}, &service.CommandsStruct{}).ProcessCommand()
-
-	// maps := map[string]string{
-	// 	gorm:       gormPackage,
-	// 	viper:      viperPackage,
-	// 	wire:       wirePackage,
-	// 	prometheus: prometheusPackage,
-	// 	fx:         fxPackage,
-	// 	uuid:       uuidPackage,
-	// }
-
-	// modelTools.Tools = maps
-
-	// res, err := modelTools.ToolsChoice()
-
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return
-	// }
-
-	// tools := commandsStruct.Choices(res, "tools")
-	// t.executeChoices(maps, tools)
 }
