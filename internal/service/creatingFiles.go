@@ -179,3 +179,37 @@ func (c *CreatingFilesBackEnd) injectConfigurationTailwind(data string) error {
 	return nil
 
 }
+
+func (c *CreatingFilesBackEnd) injectTailwindAnnotationsCss(cssFileName string) error {
+	data := `@tailwind base;
+@tailwind components;
+@tailwind utilities;`
+
+	path := fmt.Sprintf("%s/src/%s", c.path, cssFileName)
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+
+	w := bufio.NewWriter(f)
+
+	bf, err := w.WriteString(fmt.Sprintf("%s\n", data))
+
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(path)
+	fmt.Printf("buffering %s %d bytes\n", cssFileName, bf)
+
+	err = w.Flush()
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+
+}

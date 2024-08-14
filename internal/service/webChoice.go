@@ -86,8 +86,10 @@ func acceptTailwind(cs *CommandsStruct, path string, frameworkName string) {
 		switch frameworkName {
 		case "react":
 			cf.TailwindReactJS()
+			cf.injectTailwindAnnotationsCss("index.css")
 		case "vue":
 			cf.TailwindVueJS()
+			cf.injectTailwindAnnotationsCss("main.css")
 		}
 	}
 
