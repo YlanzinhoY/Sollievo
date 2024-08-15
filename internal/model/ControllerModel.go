@@ -1,9 +1,10 @@
 package model
 
 import (
+	"log"
+
 	"github.com/ylanzinhoy/sollievo/internal/service"
 	"github.com/ylanzinhoy/sollievo/internal/util"
-	"log"
 )
 
 type ControllerModel struct {
