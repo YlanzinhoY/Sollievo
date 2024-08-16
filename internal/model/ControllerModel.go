@@ -49,14 +49,19 @@ func (c *ControllerModel) executeChoices(maps map[string]string, tools []string)
 	for _, choice := range tools {
 		util.RunChoicesAndPicking(maps, choice, c.commandStructs)
 
-		if choice == "cassandra" {
+		if choice == "mysql" {
 			dg := dockercomposefile.NewDockerGen()
-			dg.CassandraDockerFile()
+			dg.MysqlDockerFile()
 		}
 
 		if choice == "postgres" {
 			dg := dockercomposefile.NewDockerGen()
 			dg.PostgresDockerFile()
+		}
+
+		if choice == "mongodb" {
+			dg := dockercomposefile.NewDockerGen()
+			dg.MongoDbDockerFile()
 		}
 
 	}

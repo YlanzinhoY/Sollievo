@@ -1,7 +1,7 @@
 package dockercomposefile
 
 import (
-	"log"
+	"fmt"
 	"os"
 )
 
@@ -16,10 +16,10 @@ func NewDockerGen() *DockerGen {
 	return &DockerGen{}
 }
 
-func (dkg *DockerGen) generateDockerFile(dataFile string) error {
+func (dkg *DockerGen) generateDockerFile(dataFile []byte) error {
 	arquivoName := "docker-compose.yml"
 
-	err := os.WriteFile(arquivoName, []byte(dataFile), 0666)
+	err := os.WriteFile(arquivoName, dataFile, 0666)
 
 	if err != nil {
 		return err
@@ -28,50 +28,84 @@ func (dkg *DockerGen) generateDockerFile(dataFile string) error {
 	return nil
 }
 
-func (dkg *DockerGen) CassandraDockerFile() {
-	data := `version: '3'
-services:
-  cassandra:
-    image: cassandra:latest
-    container_name: cassandra-container
-    ports:
-      - "9042:9042"
-    environment:
-      - CASSANDRA_USER=admin
-      - CASSANDRA_PASSWORD=admin
-    volumes:
-      - cassandra-data:/var/lib/cassandra
+func (dkg *DockerGen) MysqlDockerFile() {
+	config := Config{
+		Version: "3",
+		Services: map[string]Service{
+			"mysql": {
+				Image:         "mysql:latest",
+				ContainerName: "mysql-container",
+				Ports:         []string{"3306:3306"},
+				Environment: map[string]string{
+					"MYSQL_ROOT_PASSWORD": "rootpassword",
+					"MYSQL_DATABASE":      "mydatabase",
+					"MYSQL_USER":          "user",
+					"MYSQL_PASSWORD":      "password",
+				},
+			},
+		},
+	}
 
-volumes:
-  cassandra-data:`
-
-	err := dkg.generateDockerFile(data)
+	data, err := config.Serialize(&config)
 
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 		return
 	}
+
+	dkg.generateDockerFile(data)
 }
 
 func (dkg *DockerGen) PostgresDockerFile() {
-	data := `version: '3'
-services:
-  postgres:
-   image: postgres:latest
-   container_name: postgres-container
-   ports:
-	 - "5432:5432"
-	environment:
-		POSTGRES_USER: postgres
-		POSTGRES_PASSWORD: postgres
-		POSTGRES_DB: postgres
-	`
+	config := Config{
+		Version: "3",
+		Services: map[string]Service{
+			"postgres": {
+				Image:         "postgres:latest",
+				ContainerName: "postgres-container",
+				Ports:         []string{"5432:5432"},
+				Environment: map[string]string{
+					"POSTGRES_USER":     "postgres",
+					"POSTGRES_PASSWORD": "postgres",
+					"POSTGRES_DB":       "postgres",
+				},
+			},
+		},
+	}
 
-	err := dkg.generateDockerFile(data)
+	data, err := config.Serialize(&config)
 
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 		return
 	}
 
+	dkg.generateDockerFile(data)
+}
+
+func (dkg *DockerGen) MongoDbDockerFile() {
+	config := Config{
+		Version: "3",
+		Services: map[string]Service{
+			"mongodb": {
+				Image:         "mongodb:latest",
+				ContainerName: "mongodb-container",
+				Ports:         []string{"27017:27017"},
+				Environment: map[string]string{
+					"MONGO_INITDB_ROOT_USERNAME": "admin",
+					"MONGO_INITDB_ROOT_PASSWORD": "password",
+					"MONGO_INITDB_DATABASE":      "mydatabase",
+				},
+			},
+		},
+	}
+
+	data, err := config.Serialize(&config)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	dkg.generateDockerFile(data)
 }

@@ -14,7 +14,7 @@ func TestDockerComposeGen(t *testing.T) {
 	dc := dockercomposefile.NewDockerGen()
 
 	dir := "./" // Replace with the path to the directory you want to search
-	dc.CassandraDockerFile()
+	dc.PostgresDockerFile()
 
 	found := false // Variable to indicate if the file was found
 
