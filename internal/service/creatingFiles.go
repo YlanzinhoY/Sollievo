@@ -156,28 +156,19 @@ func (c *CreatingFilesBackEnd) injectConfigurationTailwind(data string) error {
 	if err != nil {
 		return err
 	}
-
 	defer f.Close()
-
 	w := bufio.NewWriter(f)
-
 	bf, err := w.WriteString(fmt.Sprintf("%s\n", data))
-
 	if err != nil {
 		return err
 	}
-
 	fmt.Println(path)
 	fmt.Printf("buffering tailwind.config.js %d bytes\n", bf)
-
 	err = w.Flush()
-
 	if err != nil {
 		return err
 	}
-
 	return nil
-
 }
 
 func (c *CreatingFilesBackEnd) injectTailwindAnnotationsCss(cssFileName string) error {

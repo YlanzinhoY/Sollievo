@@ -3,6 +3,7 @@ package model
 import (
 	"log"
 
+	dockercomposefile "github.com/ylanzinhoy/sollievo/internal/dockerComposeFile"
 	"github.com/ylanzinhoy/sollievo/internal/service"
 	"github.com/ylanzinhoy/sollievo/internal/util"
 )
@@ -47,5 +48,21 @@ func (c *ControllerModel) toolsChoice() ([]string, error) {
 func (c *ControllerModel) executeChoices(maps map[string]string, tools []string) {
 	for _, choice := range tools {
 		util.RunChoicesAndPicking(maps, choice, c.commandStructs)
+
+		if choice == "mysql" {
+			dg := dockercomposefile.NewDockerGen()
+			dg.MysqlDockerFile()
+		}
+
+		if choice == "postgres" {
+			dg := dockercomposefile.NewDockerGen()
+			dg.PostgresDockerFile()
+		}
+
+		if choice == "mongodb" {
+			dg := dockercomposefile.NewDockerGen()
+			dg.MongoDbDockerFile()
+		}
+
 	}
 }
