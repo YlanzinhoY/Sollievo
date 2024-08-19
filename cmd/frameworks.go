@@ -13,7 +13,6 @@ var frameworksCmd = &cobra.Command{
 	Use:   "frameworks",
 	Short: "Frameworks web for Go",
 	Run: func(cmd *cobra.Command, args []string) {
-		controller := controller.ToolingControllerUpper{}
 		controller.FrameworkController()
 	},
 }

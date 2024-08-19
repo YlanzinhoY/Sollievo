@@ -1,12 +1,13 @@
 package service
 
 import (
+	"bufio"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
-	processfile "github.com/ylanzinhoy/sollievo/internal/processFile"
 )
 
 func (s *CommandsStruct) WebChoice() {
@@ -17,7 +18,7 @@ func (s *CommandsStruct) WebChoice() {
 
 func firstQuestion() {
 
-	types := []string{"react", "flutter"}
+	types := []string{"react", "vue"}
 
 	prompt := &survey.Select{
 		Message: "First Choose",
@@ -31,8 +32,11 @@ func firstQuestion() {
 
 	switch frameworks {
 	case "react":
-		pn := createReactApp(&cs)
-		acceptTailwind(&cs, pn)
+		pn := createApp(&cs, "react")
+		acceptTailwind(&cs, pn, "react")
+	case "vue":
+		pn := createApp(&cs, "vue")
+		acceptTailwind(&cs, pn, "vue")
 	}
 
 	if err != nil {
@@ -40,24 +44,29 @@ func firstQuestion() {
 	}
 }
 
-func createReactApp(cs *CommandsStruct) string {
+func createApp(cs *CommandsStruct, frameworkName string) string {
 	var pn string
 	fmt.Println("Nome do projeto?")
-	_, err := fmt.Scan(&pn)
+	reader := bufio.NewReader(os.Stdin)
+	pn, err := reader.ReadString('\n')
 
 	if err != nil {
 		panic(err)
 	}
 
-	command := fmt.Sprintf("pnpm create vite@latest %s  --template react-ts", pn)
-	err = cs.CommandRunnerNodeJS("react", command)
+	pn = strings.TrimSpace(pn)
+
+	newPn := strings.ReplaceAll(pn, " ", "_")
+
+	command := fmt.Sprintf("pnpm create vite@latest %s  --template %s-ts", newPn, frameworkName)
+	err = cs.CommandRunnerNodeJS(frameworkName, command)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return pn
+	return newPn
 }
 
-func acceptTailwind(cs *CommandsStruct, path string) {
+func acceptTailwind(cs *CommandsStruct, path string, frameworkName string) {
 	var choice string
 	fmt.Println("Deseja Tailwind? s/n")
 	_, err := fmt.Scan(&choice)
@@ -70,6 +79,17 @@ func acceptTailwind(cs *CommandsStruct, path string) {
 		err = cs.CommandRunnerNodeJS("tailwind", fmt.Sprintf("cd %s && npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p", path))
 		if err != nil {
 			log.Panic(err)
+		}
+		cf := &CreatingFilesBackEnd{
+			path: path,
+		}
+		switch frameworkName {
+		case "react":
+			cf.TailwindReactJS()
+			cf.injectTailwindAnnotationsCss("index.css")
+		case "vue":
+			cf.TailwindVueJS()
+			cf.injectTailwindAnnotationsCss("main.css")
 		}
 	}
 
@@ -85,6 +105,11 @@ func acceptBackend(cs *CommandsStruct, path string) {
 		log.Fatal(err)
 		return
 	}
+
+	if strings.ToLower(choice) == "n" {
+		os.Exit(1)
+	}
+
 	backEndPath := fmt.Sprintf("%s/backend", path)
 
 	cf := &CreatingFilesBackEnd{
@@ -116,7 +141,7 @@ func acceptBackend(cs *CommandsStruct, path string) {
 			return
 		}
 
-		err = processfile.GenerateFiles(backEndPath, ".air.toml", "internal/processFile/.air.toml")
+		err = cf.CreateFileBackend("air.toml", cf.AirToml())
 
 		if err != nil {
 			fmt.Println(err)

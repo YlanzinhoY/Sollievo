@@ -1,7 +1,8 @@
 package controller
 
 import (
-	"fmt"
+	"github.com/ylanzinhoy/sollievo/internal/model"
+	"github.com/ylanzinhoy/sollievo/internal/service"
 )
 
 const (
@@ -22,22 +23,15 @@ const (
 	gorillaMuxPackage = "go get github.com/gorilla/mux"
 )
 
-func (t *ToolingControllerUpper) FrameworkController() {
-	maps := map[string]string{
-		gin:        ginPakcage,
-		echo:       echoPackage,
-		fiber:      fiberPackage,
-		chi:        chiPackage,
-		gorillaMux: gorillaMuxPackage,
-	}
-	modelTools.Tools = maps
+func FrameworkController() {
 
-	res, err := modelTools.ToolsChoice()
+	model.NewControllerModel("frameworks",
+		map[string]string{
+			gin:        ginPakcage,
+			echo:       echoPackage,
+			fiber:      fiberPackage,
+			chi:        chiPackage,
+			gorillaMux: gorillaMuxPackage,
+		}, &service.CommandsStruct{}).ProcessCommand()
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	tools := commandsStruct.Choices(res, "frameworks")
-	t.executeChoices(maps, tools)
 }

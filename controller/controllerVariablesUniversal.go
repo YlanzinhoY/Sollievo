@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/ylanzinhoy/sollievo/internal/enums"
 	"github.com/ylanzinhoy/sollievo/internal/model"
 	"github.com/ylanzinhoy/sollievo/internal/service"
-	"github.com/ylanzinhoy/sollievo/internal/util"
 )
 
 var commandsStruct = service.CommandsStruct{}
@@ -40,17 +38,4 @@ func (t *ToolingControllerUpper) Back(commandsStruct *service.CommandsStruct, co
 
 func (s *ToolingControllerUpper) Exit(commandsStruct *service.CommandsStruct) {
 	commandsStruct.Exit()
-}
-
-func (s *ToolingControllerUpper) executeChoices(maps map[string]string, tools []string) {
-	for _, choice := range tools {
-		util.RunChoicesAndPicking(maps, choice, &service.CommandsStruct{})
-
-		switch choice {
-		case enums.Back:
-			s.Back(&commandsStruct, "")
-		case enums.Default:
-			s.Exit(&commandsStruct)
-		}
-	}
 }

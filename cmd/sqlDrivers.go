@@ -14,7 +14,6 @@ var sqlDriversCmd = &cobra.Command{
 	Use:   "sqlDrivers",
 	Short: "drivers of databases",
 	Run: func(cmd *cobra.Command, args []string) {
-		controller := controller.ToolingControllerUpper{}
 		controller.SqlDriversController()
 	},
 }

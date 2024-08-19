@@ -26,7 +26,7 @@ func (s *CommandsStruct) CommandRunner(name, goModCommand string) error {
 		return err
 	}
 
-	fmt.Printf(enums.Green+"%s instalado com sucesso! ", name)
+	fmt.Printf(enums.Green+"%s instalado com sucesso! \n", name)
 
 	return nil
 }

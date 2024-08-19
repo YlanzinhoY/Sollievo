@@ -5,7 +5,7 @@ type Tools struct {
 }
 
 func (t *Tools) ToolsChoice() ([]string, error) {
-	array := []string{}
+	var array []string
 	for k := range t.Tools {
 		array = append(array, k)
 	}
