@@ -4,12 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/ylanzinhoy/sollievo/internal/model"
 	"github.com/ylanzinhoy/sollievo/internal/service"
 )
 
 var commandsStruct = service.CommandsStruct{}
-var modelTools = &model.Tools{}
 
 type ToolsServiceInterface interface {
 	Exec(commandsStruct *service.CommandsStruct, value, goPackage string)
