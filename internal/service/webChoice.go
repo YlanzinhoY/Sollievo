@@ -114,7 +114,7 @@ func acceptBackend(cs *CommandsStruct, path string) {
 
 	cf := &CreatingFilesBackEnd{
 		path:         path,
-		completePath: backEndPath,
+		CompletePath: backEndPath,
 	}
 	cf.creatingFilesBackEnd()
 
@@ -141,13 +141,6 @@ func acceptBackend(cs *CommandsStruct, path string) {
 			return
 		}
 
-		err = cf.CreateFileBackend("air.toml", cf.AirToml())
-
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-
-		cf.creatingStructureBase()
+		cf.CreatingStructureBase()
 	}
 }

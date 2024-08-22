@@ -1,13 +1,11 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
+	"github.com/ylanzinhoy/sollievo/controller"
 )
 
 // backendCmd represents the backend command
@@ -15,7 +13,7 @@ var backendCmd = &cobra.Command{
 	Use:   "backend",
 	Short: "Creating backend Application",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("backend called")
+		controller.BackendController()
 	},
 }
 
