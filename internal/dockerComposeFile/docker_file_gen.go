@@ -30,7 +30,7 @@ func (dkg *DockerGen) generateDockerFile(dataFile []byte) error {
 
 func (dkg *DockerGen) MysqlDockerFile() {
 	config := Config{
-		Version: "3",
+		Version: "3.8",
 		Services: map[string]Service{
 			"mysql": {
 				Image:         "mysql:latest",
@@ -58,7 +58,7 @@ func (dkg *DockerGen) MysqlDockerFile() {
 
 func (dkg *DockerGen) PostgresDockerFile() {
 	config := Config{
-		Version: "3",
+		Version: "3.8",
 		Services: map[string]Service{
 			"postgres": {
 				Image:         "postgres:latest",
