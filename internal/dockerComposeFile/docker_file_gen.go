@@ -2,7 +2,10 @@ package dockercomposefile
 
 import (
 	"fmt"
+	"log"
 	"os"
+
+	"gopkg.in/yaml.v3"
 )
 
 type IDockerGen interface {
@@ -42,14 +45,18 @@ func (dkg *DockerGen) MysqlDockerFile() {
 					"MYSQL_USER":          "user",
 					"MYSQL_PASSWORD":      "password",
 				},
+				Volumes: []string{"mysql-data:/var/lib/mysql"},
 			},
+		},
+		Volumes: map[string]yaml.Node{
+			"mysql-data": {Kind: yaml.ScalarNode, Value: ""},
 		},
 	}
 
 	data, err := config.Serialize(&config)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 		return
 	}
 
@@ -69,14 +76,18 @@ func (dkg *DockerGen) PostgresDockerFile() {
 					"POSTGRES_PASSWORD": "postgres",
 					"POSTGRES_DB":       "postgres",
 				},
+				Volumes: []string{"postgres-data:/var/lib/postgresql/data"},
 			},
+		},
+		Volumes: map[string]yaml.Node{
+			"postgres-data": {Kind: yaml.ScalarNode, Value: ""},
 		},
 	}
 
 	data, err := config.Serialize(&config)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 		return
 	}
 
@@ -95,7 +106,11 @@ func (dkg *DockerGen) MongoDbDockerFile() {
 					"MONGO_INITDB_ROOT_USERNAME": "admin",
 					"MONGO_INITDB_ROOT_PASSWORD": "password",
 				},
+				Volumes: []string{"mongo-data:/var/lib/mongo"},
 			},
+		},
+		Volumes: map[string]yaml.Node{
+			"mongo-data": {Kind: yaml.ScalarNode, Value: ""},
 		},
 	}
 
