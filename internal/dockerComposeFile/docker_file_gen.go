@@ -85,16 +85,15 @@ func (dkg *DockerGen) PostgresDockerFile() {
 
 func (dkg *DockerGen) MongoDbDockerFile() {
 	config := Config{
-		Version: "3",
+		Version: "3.8",
 		Services: map[string]Service{
 			"mongodb": {
-				Image:         "mongodb:latest",
+				Image:         "mongo:latest",
 				ContainerName: "mongodb-container",
 				Ports:         []string{"27017:27017"},
 				Environment: map[string]string{
 					"MONGO_INITDB_ROOT_USERNAME": "admin",
 					"MONGO_INITDB_ROOT_PASSWORD": "password",
-					"MONGO_INITDB_DATABASE":      "mydatabase",
 				},
 			},
 		},

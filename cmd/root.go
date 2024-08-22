@@ -19,7 +19,6 @@ var rootCmd = &cobra.Command{
   ____) | (_) | | | |  __/\ V / (_) |
  |_____/ \___/|_|_|_|\___| \_/ \___/ 
                                      
-                                     
 
 `,
 	// Uncomment the following line if your bare application
