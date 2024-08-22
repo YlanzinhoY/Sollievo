@@ -87,7 +87,7 @@ func (dkg *DockerGen) MongoDbDockerFile() {
 	config := Config{
 		Version: "3.8",
 		Services: map[string]Service{
-			"mongodb": {
+			"mongo": {
 				Image:         "mongo:latest",
 				ContainerName: "mongodb-container",
 				Ports:         []string{"27017:27017"},
