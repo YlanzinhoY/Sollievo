@@ -9,6 +9,9 @@ build-test:
 build-branch:
 	GOOS=linux GOARCH=amd64 go build -o bin/linux/sollievo-branch
 
+build-beta:
+	GOOS=linux GOARCH=amd64 go build -o bin/linux/sollievo-beta
+
 run-frameworks:
 	go run main.go frameworks
 
