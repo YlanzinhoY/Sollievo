@@ -1,13 +1,13 @@
 package service
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"os"
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/ylanzinhoy/sollievo/internal/helper"
 )
 
 func (s *CommandsStruct) WebChoice() {
@@ -47,23 +47,16 @@ func firstQuestion() {
 func createApp(cs *CommandsStruct, frameworkName string) string {
 	var pn string
 	fmt.Println("Nome do projeto?")
-	reader := bufio.NewReader(os.Stdin)
-	pn, err := reader.ReadString('\n')
-
+	newpn, err := helper.StdinNames(pn)
 	if err != nil {
 		panic(err)
 	}
-
-	pn = strings.TrimSpace(pn)
-
-	newPn := strings.ReplaceAll(pn, " ", "_")
-
-	command := fmt.Sprintf("pnpm create vite@latest %s  --template %s-ts", newPn, frameworkName)
+	command := fmt.Sprintf("pnpm create vite@latest %s  --template %s-ts", newpn, frameworkName)
 	err = cs.CommandRunnerNodeJS(frameworkName, command)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return newPn
+	return newpn
 }
 
 func acceptTailwind(cs *CommandsStruct, path string, frameworkName string) {

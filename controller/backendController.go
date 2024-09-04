@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/ylanzinhoy/sollievo/internal/helper"
 	"github.com/ylanzinhoy/sollievo/internal/service"
 )
 
@@ -12,29 +13,35 @@ func BackendController() {
 	cs := service.CommandsStruct{}
 
 	var projectName string
-	fmt.Println("What's your project name? ")
-	fmt.Scan(&projectName)
+	fmt.Println("What's your project name?")
 
-	cf.CompletePath = projectName
+	pn, err := helper.StdinNames(projectName)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	cf.CompletePath = pn
 	cf.CreatingStructureBase()
-	service.GomodInitService(projectName)
+	service.GomodInitService(pn)
 
-	err := cs.CommandRunnerInteractivePath("sollievo", "frameworks", projectName)
+	err = cs.CommandRunnerInteractivePath("sollievo", "frameworks", pn)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-	err = cs.CommandRunnerInteractivePath("sollievo", "sqlDrivers", projectName)
+	err = cs.CommandRunnerInteractivePath("sollievo", "sqlDrivers", pn)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-	err = cs.CommandRunnerInteractivePath("sollievo", "tools", projectName)
+	err = cs.CommandRunnerInteractivePath("sollievo", "tools", pn)
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
-	err = cs.CommandRunnerInteractivePath("sollievo", "tests", projectName)
+	err = cs.CommandRunnerInteractivePath("sollievo", "tests", pn)
 	if err != nil {
 		log.Fatal(err)
 		return
