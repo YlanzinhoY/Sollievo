@@ -9,7 +9,7 @@ import (
 
 type CreatingFilesBackEnd struct {
 	path         string
-	completePath string
+	CompletePath string
 }
 
 func (c *CreatingFilesBackEnd) creatingFilesBackEnd() {
@@ -24,7 +24,7 @@ func (c *CreatingFilesBackEnd) creatingFilesBackEnd() {
 
 }
 
-func (c *CreatingFilesBackEnd) creatingStructureBase() {
+func (c *CreatingFilesBackEnd) CreatingStructureBase() {
 	projectDir := []string{
 		"cmd",
 		"pkg",
@@ -38,68 +38,13 @@ func (c *CreatingFilesBackEnd) creatingStructureBase() {
 	}
 
 	for _, dir := range projectDir {
-		err := os.MkdirAll(fmt.Sprintf("%s/%s", c.completePath, dir), os.ModePerm)
+		err := os.MkdirAll(fmt.Sprintf("%s/%s", c.CompletePath, dir), os.ModePerm)
 		if err != nil {
 			log.Fatal(err)
 		}
 		fmt.Println("estrutura criada com sucesso!")
 	}
 
-}
-
-func (c *CreatingFilesBackEnd) AirToml() string {
-	return `root = "."
-testdata_dir = "testdata"
-tmp_dir = "tmp"
-
-[build]
-  args_bin = []
-  bin = "./tmp/main"
-  cmd = "go build -o ./tmp/main ."
-  delay = 1000
-  exclude_dir = ["assets", "tmp", "vendor", "testdata"]
-  exclude_file = []
-  exclude_regex = ["_test.go"]
-  exclude_unchanged = false
-  follow_symlink = false
-  full_bin = ""
-  include_dir = []
-  include_ext = ["go", "tpl", "tmpl", "html"]
-  include_file = []
-  kill_delay = "0s"
-  log = "build-errors.log"
-  poll = false
-  poll_interval = 0
-  post_cmd = []
-  pre_cmd = []
-  rerun = false
-  rerun_delay = 500
-  send_interrupt = false
-  stop_on_error = false
-
-[color]
-  app = ""
-  build = "yellow"
-  main = "magenta"
-  runner = "green"
-  watcher = "cyan"
-
-[log]
-  main_only = false
-  time = false
-
-[misc]
-  clean_on_exit = false
-
-[proxy]
-  app_port = 0
-  enabled = false
-  proxy_port = 0
-
-[screen]
-  clear_on_rebuild = false
-  keep_scroll = true
-`
 }
 
 func (c *CreatingFilesBackEnd) TailwindReactJS() {

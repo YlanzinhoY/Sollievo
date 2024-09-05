@@ -19,13 +19,12 @@ var rootCmd = &cobra.Command{
   ____) | (_) | | | |  __/\ V / (_) |
  |_____/ \___/|_|_|_|\___| \_/ \___/ 
                                      
-                                     
 
 `,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
-	Version: "0.1.7",
+	Version: "0.1.8-beta",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

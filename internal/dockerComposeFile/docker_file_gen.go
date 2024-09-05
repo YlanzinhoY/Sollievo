@@ -2,7 +2,10 @@ package dockercomposefile
 
 import (
 	"fmt"
+	"log"
 	"os"
+
+	"gopkg.in/yaml.v3"
 )
 
 type IDockerGen interface {
@@ -30,7 +33,7 @@ func (dkg *DockerGen) generateDockerFile(dataFile []byte) error {
 
 func (dkg *DockerGen) MysqlDockerFile() {
 	config := Config{
-		Version: "3",
+		Version: "3.8",
 		Services: map[string]Service{
 			"mysql": {
 				Image:         "mysql:latest",
@@ -42,14 +45,18 @@ func (dkg *DockerGen) MysqlDockerFile() {
 					"MYSQL_USER":          "user",
 					"MYSQL_PASSWORD":      "password",
 				},
+				Volumes: []string{"mysql-data:/var/lib/mysql"},
 			},
+		},
+		Volumes: map[string]yaml.Node{
+			"mysql-data": {Kind: yaml.ScalarNode, Value: ""},
 		},
 	}
 
 	data, err := config.Serialize(&config)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 		return
 	}
 
@@ -58,7 +65,7 @@ func (dkg *DockerGen) MysqlDockerFile() {
 
 func (dkg *DockerGen) PostgresDockerFile() {
 	config := Config{
-		Version: "3",
+		Version: "3.8",
 		Services: map[string]Service{
 			"postgres": {
 				Image:         "postgres:latest",
@@ -69,14 +76,18 @@ func (dkg *DockerGen) PostgresDockerFile() {
 					"POSTGRES_PASSWORD": "postgres",
 					"POSTGRES_DB":       "postgres",
 				},
+				Volumes: []string{"postgres-data:/var/lib/postgresql/data"},
 			},
+		},
+		Volumes: map[string]yaml.Node{
+			"postgres-data": {Kind: yaml.ScalarNode, Value: ""},
 		},
 	}
 
 	data, err := config.Serialize(&config)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 		return
 	}
 
@@ -85,18 +96,21 @@ func (dkg *DockerGen) PostgresDockerFile() {
 
 func (dkg *DockerGen) MongoDbDockerFile() {
 	config := Config{
-		Version: "3",
+		Version: "3.8",
 		Services: map[string]Service{
-			"mongodb": {
-				Image:         "mongodb:latest",
+			"mongo": {
+				Image:         "mongo:latest",
 				ContainerName: "mongodb-container",
 				Ports:         []string{"27017:27017"},
 				Environment: map[string]string{
 					"MONGO_INITDB_ROOT_USERNAME": "admin",
 					"MONGO_INITDB_ROOT_PASSWORD": "password",
-					"MONGO_INITDB_DATABASE":      "mydatabase",
 				},
+				Volumes: []string{"mongo-data:/var/lib/mongo"},
 			},
+		},
+		Volumes: map[string]yaml.Node{
+			"mongo-data": {Kind: yaml.ScalarNode, Value: ""},
 		},
 	}
 
