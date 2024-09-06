@@ -1,7 +1,7 @@
 build:
 	GOOS=linux GOARCH=amd64 go build -o bin/linux/sollievo
 	GOOS=windows GOARCH=amd64 go build -o bin/windows/sollievo.exe
-	GOOS=darwin GOARCH=arm64 go build -o bin/macos/sollievo
+	GOOS=darwin GOARCH=amd64 go build -o bin/macos/sollievo
 
 build-test:
 	GOOS=linux GOARCH=amd64 go build -o bin/linux/sollievo-test
