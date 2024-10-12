@@ -18,7 +18,7 @@ func (s *CommandsStruct) WebChoice() {
 
 func firstQuestion() {
 
-	types := []string{"react", "vue"}
+	types := []string{"react", "vue", "nuxt", "next"}
 
 	prompt := &survey.Select{
 		Message: "First Choose",
@@ -37,6 +37,16 @@ func firstQuestion() {
 	case "vue":
 		pn := createApp(&cs, "vue")
 		acceptTailwind(&cs, pn, "vue")
+	case "nuxt":
+		var pn string
+		fmt.Println("nome do projeto")
+		fmt.Scan(&pn)
+		cs.CommandRunnerNodeJS("nuxt", fmt.Sprintf("pnpm dlx nuxi@latest init %s", pn))
+	case "next":
+		var pn string
+		fmt.Println("Nome do projeto")
+		fmt.Scan(&pn)
+		cs.CommandRunner("next", fmt.Sprintf("npx create-next-app@latest %s --typescript --eslint --tailwind --src-dir --app --import-alias='@/*' --yes", pn))
 	}
 
 	if err != nil {
