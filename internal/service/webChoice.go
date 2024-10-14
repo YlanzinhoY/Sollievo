@@ -46,12 +46,13 @@ func firstQuestion() {
 		var pn string
 		fmt.Println("Nome do projeto")
 		fmt.Scan(&pn)
-		cs.CommandRunner("next", fmt.Sprintf("npx create-next-app@latest %s --typescript --eslint --tailwind --src-dir --app --import-alias='@/*' --yes", pn))
+		cs.CommandRunnerJSFrameworksCLI("npx", "create-next-app@latest", pn)
+		acceptBackend(&cs, pn)
 	case "angular":
 		var pn string
 		fmt.Println("nome do projeto")
 		fmt.Scan(&pn)
-		cs.CommandRunnerJSFrameworksCLI(pn)
+		cs.CommandRunnerJSFrameworksCLI("ng", "new", pn)
 		acceptBackend(&cs, pn)
 	}
 

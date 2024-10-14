@@ -64,8 +64,8 @@ func (s *CommandsStruct) CommandRunnerInteractive(name, command string) error {
 	return nil
 }
 
-func (s *CommandsStruct) CommandRunnerJSFrameworksCLI(projectname string) {
-	cmd := exec.Command("ng", "new", projectname)
+func (s *CommandsStruct) CommandRunnerJSFrameworksCLI(commandStarted, flags, projectname string) {
+	cmd := exec.Command(commandStarted, flags, projectname)
 
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
