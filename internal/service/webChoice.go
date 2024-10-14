@@ -18,7 +18,7 @@ func (s *CommandsStruct) WebChoice() {
 
 func firstQuestion() {
 
-	types := []string{"react", "vue", "nuxt", "next"}
+	types := []string{"react", "vue", "nuxt", "next", "angular"}
 
 	prompt := &survey.Select{
 		Message: "First Choose",
@@ -47,10 +47,17 @@ func firstQuestion() {
 		fmt.Println("Nome do projeto")
 		fmt.Scan(&pn)
 		cs.CommandRunner("next", fmt.Sprintf("npx create-next-app@latest %s --typescript --eslint --tailwind --src-dir --app --import-alias='@/*' --yes", pn))
+	case "angular":
+		var pn string
+		fmt.Println("nome do projeto")
+		fmt.Scan(&pn)
+		cs.CommandRunnerJSFrameworksCLI(pn)
+		acceptBackend(&cs, pn)
 	}
 
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 }
 
