@@ -18,7 +18,7 @@ func (s *CommandsStruct) WebChoice() {
 
 func firstQuestion() {
 
-	types := []string{"react", "vue"}
+	types := []string{"react", "vue", "nuxt", "next", "angular"}
 
 	prompt := &survey.Select{
 		Message: "First Choose",
@@ -37,10 +37,28 @@ func firstQuestion() {
 	case "vue":
 		pn := createApp(&cs, "vue")
 		acceptTailwind(&cs, pn, "vue")
+	case "nuxt":
+		var pn string
+		fmt.Println("nome do projeto")
+		fmt.Scan(&pn)
+		cs.CommandRunnerNodeJS("nuxt", fmt.Sprintf("pnpm dlx nuxi@latest init %s", pn))
+	case "next":
+		var pn string
+		fmt.Println("Nome do projeto")
+		fmt.Scan(&pn)
+		cs.CommandRunnerJSFrameworksCLI("npx", "create-next-app@latest", pn)
+		acceptBackend(&cs, pn)
+	case "angular":
+		var pn string
+		fmt.Println("nome do projeto")
+		fmt.Scan(&pn)
+		cs.CommandRunnerJSFrameworksCLI("ng", "new", pn)
+		acceptBackend(&cs, pn)
 	}
 
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 }
 

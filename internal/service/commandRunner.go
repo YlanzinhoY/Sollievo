@@ -64,6 +64,21 @@ func (s *CommandsStruct) CommandRunnerInteractive(name, command string) error {
 	return nil
 }
 
+func (s *CommandsStruct) CommandRunnerJSFrameworksCLI(commandStarted, flags, projectname string) {
+	cmd := exec.Command(commandStarted, flags, projectname)
+
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	if err := cmd.Run(); err != nil {
+		fmt.Printf("Erro ao executar o comando: %v\n", err)
+		os.Exit(1)
+	}
+
+	fmt.Println("Projeto Angular criado com sucesso.")
+}
+
 func (s *CommandsStruct) CommandRunnerInteractivePath(name, command, path string) error {
 	cmd := exec.Command(name, strings.Fields(command)...)
 	cmd.Dir = path
