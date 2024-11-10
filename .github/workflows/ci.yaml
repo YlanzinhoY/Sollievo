@@ -1,6 +1,8 @@
 name: ci-sollievo-workflow
 on:
   push:
+    tags:
+      - 'v*' 
     branches:
       - main
 jobs:
@@ -20,7 +22,6 @@ jobs:
       with:
         files: build/*.zip
         prerelease: false
-        token: ${{ secrets.GITHUB_TOKEN }}
         make_latest: true
       env:
         GOROOT: /opt/hostedtoolcache/go/1.23.2/x64
