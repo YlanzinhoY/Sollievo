@@ -9,9 +9,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// sqlDriversCmd represents the sqlDrivers command
-var sqlDriversCmd = &cobra.Command{
-	Use:   "sqlDrivers",
+// databasesCmd represents the databasesCmd command
+var databasesCmd = &cobra.Command{
+	Use:   "databases",
 	Short: "drivers of databases",
 	Run: func(cmd *cobra.Command, args []string) {
 		controller.SqlDriversController()
@@ -19,7 +19,7 @@ var sqlDriversCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(sqlDriversCmd)
+	rootCmd.AddCommand(databasesCmd)
 
 	// Here you will define your flags and configuration settings.
 
