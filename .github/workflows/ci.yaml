@@ -1,0 +1,33 @@
+name: ci-sollievo-workflow
+# Evento
+on:
+  push:
+  # filtros
+    tags:
+      - 'v*' 
+
+jobs:
+  build-and-release:
+  ## ambiente
+    runs-on: ubuntu-latest
+    ## actions
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '1.23'
+    
+    - name: build and zip with makefile
+      run: make zip
+    
+    - name: create github release
+      uses: "softprops/action-gh-release@v2"
+      with:
+        files: build/*.zip
+        prerelease: false
+        make_latest: true
+      env:
+        GOROOT: /opt/hostedtoolcache/go/1.23.2/x64
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    
