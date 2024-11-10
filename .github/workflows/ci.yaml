@@ -20,7 +20,7 @@ jobs:
       with:
         files: build/*.zip
         prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ github.token }}
+        make_latest: true
         
     
