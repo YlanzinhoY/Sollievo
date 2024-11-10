@@ -1,13 +1,16 @@
 name: ci-sollievo-workflow
+# Evento
 on:
   push:
+  # filtros
     tags:
       - 'v*' 
-    branches:
-      - main
+
 jobs:
   build-and-release:
+  ## ambiente
     runs-on: ubuntu-latest
+    ## actions
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-go@v2
