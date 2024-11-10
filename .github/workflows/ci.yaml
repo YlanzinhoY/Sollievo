@@ -20,7 +20,10 @@ jobs:
       with:
         files: build/*.zip
         prerelease: false
-        token: ${{ github.token }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         make_latest: true
+      env:
+        GOROOT: /opt/hostedtoolcache/go/1.23.2/x64
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     
